@@ -5,7 +5,7 @@ const Success = () => {
     <div v-show="show" className="overlay">
       <div className="dialog">
         <GiConfirmed
-          style={{ color: "green", fontSize: "8em", fontWeight: "bold" }}
+          style={{ color: "#2d3038", fontSize: "8em", fontWeight: "bold" }}
         />
       </div>
     </div>

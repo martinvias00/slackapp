@@ -5,7 +5,7 @@ const Loading = () => {
     <div v-show="show" className="overlay">
       <div className="dialog">
         <DiReact
-          style={{ color: "green", fontSize: "8em", fontWeight: "bold" }}
+          style={{ color: "#2d3038", fontSize: "8em", fontWeight: "bold" }}
         />
       </div>
     </div>
