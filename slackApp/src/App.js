@@ -1,18 +1,17 @@
 import * as React from "react";
 import { useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
-import './App.css';
+import "./App.css";
 
 import Messages from "./Components/Messages";
 import Message2 from "./Components/Message2";
-import Search from "./Components/Search"
+import Search from "./Components/Search";
 
-import {FaSearch} from "react-icons/fa"
-import {AiOutlineHistory} from "react-icons/ai"
-import {FiHelpCircle} from "react-icons/fi"
-import {HiPencilAlt} from "react-icons/hi"
+import { FaSearch } from "react-icons/fa";
+import { AiOutlineHistory } from "react-icons/ai";
+import { FiHelpCircle } from "react-icons/fi";
+import { HiPencilAlt } from "react-icons/hi";
 import LoginModal from "./Components/Login";
-
 
 function App() {
   const [loginModalOpen, setLoginModalOpen] = useState(true);
@@ -21,24 +20,28 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <AiOutlineHistory className="top_nav__Leftsidebar"/>
-        <span className="search" onClick={()=>{ setSearchModalOpen(true)}} >
-          <FaSearch id="FaSearch"/>
+        <AiOutlineHistory className="top_nav__Leftsidebar" />
+        <span
+          className="search"
+          onClick={() => {
+            setSearchModalOpen(true);
+          }}
+        >
+          <FaSearch id="FaSearch" />
         </span>
-        <FiHelpCircle className="top_nav__Rightsidebar"/>
+        <FiHelpCircle className="top_nav__Rightsidebar" />
       </header>
       <aside className="aside">
-        <span className="workspaceWrapper"> 
-          <span className="workspaceName">Workspace</span> 
-          <HiPencilAlt className="pencilIcon"/>
+        <span className="workspaceWrapper">
+          <span className="workspaceName">Workspace</span>
+          <HiPencilAlt className="pencilIcon" />
         </span>
         <nav>
           <Link to="/about">Channels</Link>
           <nav>
-        <Link to="/">Direct Messages</Link>
-      </nav>
+            <Link to="/">Direct Messages</Link>
+          </nav>
         </nav>
-        
       </aside>
       <span id="messages">
         <Routes>
