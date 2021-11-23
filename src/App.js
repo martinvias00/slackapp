@@ -15,21 +15,21 @@ function App() {
   return (
     <div>
       <Routes>
+        <Route path="/" element={NavigateToLogin} />
         <Route
+          path="/login"
           exact
-          path="/"
           element={
             <Login setClient={setClient} setonRegister={setonRegister} />
           }
-        ></Route>
+        />
         <Route exact path="/home" element={<Home setClient={setClient} />} />
         <Route exact path="/register" element={<Register />} />
         <Route path="*" element={<h1>404 NOT FOUND</h1>} />
       </Routes>
-      {/* {Client && <Navigate to="/home" />} */}
-      {/* {Client === null && <Navigate to="/" />}  */}
     </div>
   );
 }
 
 export default App;
+const NavigateToLogin = <Navigate to="/login" />;
