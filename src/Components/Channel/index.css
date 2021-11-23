@@ -1,0 +1,7 @@
+.ChatRoomItem {
+  cursor: pointer;
+  text-decoration: none !important;
+}
+.ChatRoomItem:hover {
+  background-color: burlywood;
+}
