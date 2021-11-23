@@ -6,7 +6,7 @@ import Loading from "../Components/Loadingscreen/Loading";
 import Success from "../Components/Loadingscreen/Success";
 
 const axios = require("axios").default;
-const URL = process.env.React_App_URL;
+const URL = process.env.REACT_APP_URL;
 
 const Register = ({ onRegister, setonRegister }) => {
   const history = useNavigate();
@@ -31,7 +31,7 @@ const Register = ({ onRegister, setonRegister }) => {
       old.push(newAccount);
       console.log(newAccount);
       axios
-        .post(`${URL}/auth/`, newAccount)
+        .post(`${URL}/api/v1/auth/`, newAccount)
         .then(function (response) {
           console.log(response);
           setloading(false);

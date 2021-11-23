@@ -5,7 +5,7 @@ import Input from "../Components/Fieldset/Input";
 import { method } from "../ClientSessionHandler";
 import React from "react";
 const axios = require("axios").default;
-const URL = process.env.React_App_URL;
+const URL = process.env.REACT_APP_URL;
 const Login = ({ setClient, setonRegister }) => {
   const history = useNavigate();
   const [username, setusername] = useState("");
@@ -20,7 +20,7 @@ const Login = ({ setClient, setonRegister }) => {
   const handleLogin = (e) => {
     e.preventDefault();
     axios
-      .post(`${URL}/auth/sign_in`, {
+      .post(`${URL}/api/v1/auth/sign_in`, {
         email: username,
         password: password,
       })
