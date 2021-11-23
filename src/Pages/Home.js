@@ -3,10 +3,11 @@ import { useState } from "react";
 import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import "../App.css";
 import { method } from "../ClientSessionHandler";
+import { axios } from "axios";
 
 import Messages from "../Components/Messages";
-import Message2 from "../Components/Message2";
 import Search from "../Components/Search";
+import DirectMessages from "../Components/DirectMessages/DirectMessages";
 
 import Channel from "../Components/Channel";
 import { FaSearch } from "react-icons/fa";
@@ -16,7 +17,7 @@ import { HiPencilAlt } from "react-icons/hi";
 
 const Home = ({ setClient }) => {
   const navigate = useNavigate();
-  const [searchModalOpen, setSearchModalOpen] = useState(true);
+  const [searchModalOpen, setSearchModalOpen] = useState(false);
   const handleLogout = () => {
     method.rmLocalClient();
     navigate("/", { replace: true });
@@ -52,7 +53,7 @@ const Home = ({ setClient }) => {
 
       console.log(content);
     })();
-    renderChannels();
+    // renderChannels();
   };
 
   const handleSubmit = (e) => {
@@ -135,22 +136,22 @@ const Home = ({ setClient }) => {
             <Link to="/">Direct Messages</Link>
           </nav>
         </nav>
+        <DirectMessages/>
       </aside>
       <span id="messages">
         <Routes>
           <Route path="/" element={<Messages />} />
-          <Route path="about" element={<Message2 />} />
         </Routes>
       </span>
       {searchModalOpen && <Search setOpenSearchModal={setSearchModalOpen} />}
 
       {/* render user channels */}
-      {console.log(isSuccess)}
+      {/* {console.log(isSuccess)}
       {isSuccess === 200
         ? channel.map((chan) => (
             <Channel name={chan.name} channelid={chan.id} />
           ))
-        : renderChannels()}
+         /*: renderChannels()} */}
 
       <button
         onClick={(e) => {

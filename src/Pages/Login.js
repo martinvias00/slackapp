@@ -41,7 +41,7 @@ const Login = ({ setClient, setonRegister }) => {
         history("/home", { replace: true });
       })
       .catch(function (error) {
-        alert(error.response.data.errors);
+        alert(error.response);
       });
     setusername("");
     setpassword("");

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { Navigate, Routes, Route, Link } from "react-router-dom";
 import "./App.css";
 
-import LoginModal from "./Components/LoginModal";
+
 
 import { method } from "./ClientSessionHandler";
 import Login from "./Pages/Login";
