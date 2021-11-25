@@ -26,8 +26,6 @@ function App() {
         <Route exact path="/register" element={<Register />} />
         <Route path="*" element={<h1>404 NOT FOUND</h1>} />
       </Routes>
-      {/* {Client && <Navigate to="/home" />} */}
-      {/* {Client === null && <Navigate to="/" />}  */}
     </div>
   );
 }

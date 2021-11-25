@@ -2,10 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 import Input from "../Components/Fieldset/Input";
-import { method } from "../ClientSessionHandler";
+import request from "../request";
 import React from "react";
-const axios = require("axios").default;
-const URL = process.env.React_App_URL;
 const Login = ({ setClient, setonRegister }) => {
   const history = useNavigate();
   const [username, setusername] = useState("");
@@ -19,30 +17,22 @@ const Login = ({ setClient, setonRegister }) => {
   });
   const handleLogin = (e) => {
     e.preventDefault();
-    axios
-      .post(`${URL}/auth/sign_in`, {
+    const header = {
+      "Content-Type": "application/json",
+    };
+    const options =
+      ("/auth/sign_in",
+      "POST",
+      header,
+      {
         email: username,
         password: password,
-      })
-      .then(function (response) {
-        const userId = response.data.data.id;
-        const accessToken = response.headers["access-token"];
-        const { client, expiry, uid } = response.headers;
-        const userHeader = {
-          id: userId,
-          accessToken: accessToken,
-          client: client,
-          expiry: expiry,
-          uid: uid,
-        };
-        alert(`${client} ${expiry}  ${uid} ${accessToken}`);
-        method.setLocalClient(userHeader);
-        setClient(method.getLocalClient());
-        history("/home", { replace: true });
-      })
-      .catch(function (error) {
-        alert(error.response.data.errors);
       });
+    const response = request.login(options);
+    if (response) {
+      setClient(method.getLocalClient());
+      history("/home", { replace: true });
+    }
     setusername("");
     setpassword("");
   };
