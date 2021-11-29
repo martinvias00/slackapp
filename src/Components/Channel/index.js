@@ -11,7 +11,7 @@ const Channel = (props) => {
       key={channelid}
       style={{ textDecoration: "none" }}
     >
-      <div style={container} className="ChatRoomItem">
+      <div style={container} className="ChatRoomItem bg-gray-500">
         {console.log(channelid, "insidechannel")}
         <img src={profilePic} alt="profile" style={profilePicStyle} />
         <span style={countStyle}>5</span>
