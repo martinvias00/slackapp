@@ -4,9 +4,7 @@ import { useNavigate } from "react-router";
 import Input from "../Components/Fieldset/Input";
 import Loading from "../Components/Loadingscreen/Loading";
 import Success from "../Components/Loadingscreen/Success";
-
-const axios = require("axios").default;
-const URL = process.env.REACT_APP_URL;
+import request from "../util/request";
 
 const Register = ({ onRegister, setonRegister }) => {
   const history = useNavigate();
@@ -30,10 +28,13 @@ const Register = ({ onRegister, setonRegister }) => {
       setloading(true);
       old.push(newAccount);
       console.log(newAccount);
-      axios
-        .post(`${URL}/api/v1/auth/`, newAccount)
+      const params = {
+        path: "/api/v1/auth/",
+        data: newAccount,
+      };
+      request
+        .register(params)
         .then(function (response) {
-          console.log(response);
           setloading(false);
           setcomplete(true);
         })

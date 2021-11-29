@@ -11,19 +11,18 @@ const Channel = (props) => {
       key={channelid}
       style={{ textDecoration: "none" }}
     >
-      <div style={container} className="ChatRoomItem bg-gray-500">
-        {console.log(channelid, "insidechannel")}
-        <img src={profilePic} alt="profile" style={profilePicStyle} />
-        <span style={countStyle}>5</span>
+      <div className="ChatRoomItem">
+        {/* <img src={profilePic} alt="profile" style={profilePicStyle} /> */}
+        {/* <span style={countStyle}>5</span> */}
         <div style={sideContainer}>
           <div style={nameWrapperStyle}>
             <span style={nameStyle}>{name}</span>
             <span style={textStyle}>9:22</span>
           </div>
-
+          {/* 
           <span style={textStyle}>
             Lorem ipsum dolor sit amet, consectetur l...
-          </span>
+          </span> */}
         </div>
       </div>
     </Link>
@@ -76,7 +75,12 @@ const nameWrapperStyle = {
   width: "100%",
   display: "flex",
 };
-const nameStyle = { paddingLeft: "7px", flex: 1, fontWeight: "bold" };
+const nameStyle = {
+  paddingLeft: "7px",
+  flex: 1,
+  fontWeight: "bold",
+  textAlign: "left",
+};
 const textStyle = {
   color: "gray",
 };

@@ -5,7 +5,6 @@ import "./App.css";
 
 import LoginModal from "./Components/LoginModal";
 
-import { method } from "./ClientSessionHandler";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Home from "./Pages/Home";

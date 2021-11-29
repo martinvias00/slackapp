@@ -1,46 +1,31 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import React, { useState } from "react";
 
 import Input from "../Components/Fieldset/Input";
-import { method } from "../ClientSessionHandler";
-import React from "react";
-const axios = require("axios").default;
-const URL = process.env.REACT_APP_URL;
+import request from "../util/request";
+
 const Login = ({ setClient, setonRegister }) => {
   const history = useNavigate();
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
-  const [userHeaders, setuserHeaders] = useState({
-    id: "",
-    accessToken: "",
-    client: "",
-    expiry: "",
-    uid: "",
-  });
-  const handleLogin = (e) => {
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(`${URL}/api/v1/auth/sign_in`, {
+    const params = {
+      path: "/api/v1/auth/sign_in",
+      data: {
         email: username,
         password: password,
+      },
+    };
+    request
+      .login(params)
+      .then((response) => {
+        if (response.status === 200) {
+          history("/home", { replace: true });
+        }
       })
-      .then(function (response) {
-        const userId = response.data.data.id;
-        const accessToken = response.headers["access-token"];
-        const { client, expiry, uid } = response.headers;
-        const userHeader = {
-          id: userId,
-          accessToken: accessToken,
-          client: client,
-          expiry: expiry,
-          uid: uid,
-        };
-        alert(`${client} ${expiry}  ${uid} ${accessToken}`);
-        method.setLocalClient(userHeader);
-        setClient(method.getLocalClient());
-        history("/home", { replace: true });
-      })
-      .catch(function (error) {
+      .catch((error) => {
         alert(error.response.data.errors);
       });
     setusername("");
@@ -56,11 +41,10 @@ const Login = ({ setClient, setonRegister }) => {
       </div>
 
       <div style={LoginContainerStyle}>
-        <form style={loginStyle}>
+        <form style={loginStyle} onSubmit={handleSubmit}>
           <Input
             name="Username"
             placeholder="Username"
-            value={username}
             setState={setusername}
             type="text"
             errorMessage=""
@@ -68,13 +52,12 @@ const Login = ({ setClient, setonRegister }) => {
           <Input
             name="password"
             placeholder="Password"
-            value={password}
             setState={setpassword}
             type="password"
             errorMessage=""
           />
           <div style={btnWrapper}>
-            <button style={loginBtnStyle} onClick={(e) => handleLogin(e)}>
+            <button style={loginBtnStyle} type="submit">
               Log In
             </button>
             <button
