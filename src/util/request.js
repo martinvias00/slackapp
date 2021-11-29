@@ -1,41 +1,73 @@
+const axios = require("axios").default;
+const API_URL = process.env.REACT_APP_URL;
+const client = "client";
 export default class request {
-  static axios = require("axios").default;
-  static API_URL = process.env.REACT_APP_URL;
-  static client = "client";
-
   static API_REQUEST = (opts) => {
-    const { path, action, header, data } = opts;
+    const { path, action, data, header } = opts;
     const URL = API_URL + path;
-    const options = {
-      method: action,
-      url: URL,
-      headers: header,
-      data: data,
-    };
+    let options = {};
+    if (action === "GET") {
+      options = {
+        method: action,
+        url: URL,
+        headers: header,
+      };
+      console.log(header);
+    } else {
+      options = {
+        method: action,
+        url: URL,
+        headers: header,
+        data: data,
+      };
+    }
+
     return axios.request(options);
   };
 
-  static login(options) {
-    API_REQUEST(options)
-      .then((response) => {
-        const userId = response.data.data.id;
-        const accessToken = response.headers["access-token"];
-        const { client, expiry, uid } = response.headers;
-        const config = {
-          id: userId,
-          accessToken: accessToken,
-          client: client,
-          expiry: expiry,
-          uid: uid,
-        };
-        alert(`Login success`);
-        setLocalClient(userHeader);
-        return config;
-      })
-      .catch((error) => {
-        alert(error.response.data.errors);
-        return false;
-      });
+  static login(params) {
+    params = {
+      ...params,
+      action: "POST",
+      header: {
+        "Content-Type": "application/json",
+      },
+    };
+    return request.API_REQUEST(params).then((response) => {
+      const userId = response.data.data.id;
+      const accessToken = response.headers["access-token"];
+      const { client, expiry, uid } = response.headers;
+
+      alert("Login Success!");
+      const userData = {
+        id: userId,
+        token: accessToken,
+        client: client,
+        expiry: expiry,
+        uid: uid,
+      };
+      localStorage.setItem("newUser", JSON.stringify(userData));
+      console.log(userId, accessToken, client, expiry, uid);
+      return response;
+    });
+  }
+  static register(params) {
+    params = {
+      ...params,
+      action: "POST",
+      header: {
+        "Content-Type": "application/json",
+      },
+    };
+    return request.API_REQUEST(params);
+  }
+  static channels(params) {
+    console.log(params, "test");
+    params = {
+      ...params,
+      action: "GET",
+    };
+    return request.API_REQUEST(params);
   }
   static setLocalClient(data) {
     localStorage.setItem(client, JSON.stringify(data));
