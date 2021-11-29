@@ -7,14 +7,38 @@ import RenderPerson from "./RenderPerson";
 const URL = process.env.REACT_APP_URL;
 const getheaders = JSON.parse(localStorage.getItem("client"))
 
+
 if(getheaders){
-    var {accessToken, client, expiry, uid} = getheaders;
+    var {accessToken, client, expiry, uid, id} = getheaders;
 }
+
 const person=[]
+const clientDetails = {
+  id: id,
+  provider: 'email',
+  uid: uid,
+  allow_password_change: false,
+  name: null,
+}
+
+const newAcc = {
+  id: 1303,
+  provider: 'email',
+  uid: 'romalliv@yahoo.com',
+  allow_password_change: false,
+  name: null,
+}
+person.push(clientDetails)
+person.push(newAcc)
+localStorage.setItem("addedPerson", JSON.stringify(person))
+
+
 
 function AddPerson({setOpenUserTab}){
+  const addedPerson = JSON.parse(localStorage.getItem("addedPerson"))
 
     const [get, setGet]=useState([]);
+    const [searchTerm, setSearchTerm]=useState('')
 
     useEffect(()=>{
 
@@ -37,65 +61,108 @@ function AddPerson({setOpenUserTab}){
       });
         
     },[])
-    
 
+    
+    
     const  UserTab=()=>{
 
-        if(get.length === 0 ){
+      if(get.length === 0 ){
         
-        }else{
-            var array = get.data.data
-            const found =  array.find(({ name }) => name === array.email)
-            console.log("found",found)
+      }else{
+          var array = get.data.data
+          const newArray =  array.map((x) => {return x.uid})
+          function isFiltered(value) {
+            return value = `${searchTerm}`
+          }
+  
+            if(searchTerm===''){
+              function Blog(props) {
+                    const sidebar = (
+                      <ul>
+                        {props.posts.map((post) =>
+                        
+                          <li key={post.id.id} className="li" style={listStyle} onClick={(e) => {
+                            const id = e.target.key={post}
 
-            function Blog(props) {
-                const sidebar = (
-                  <ul>
-                    {props.posts.map((post) =>
+                            if((addedPerson.map(uid=> uid.uid)).find(uid=> uid === `${id.post.uid}` )){
+                              console.log("Same Person")
+                            }else{console.log("New Person")
+                            person.push(id.post)
+                            localStorage.setItem("addedPerson", JSON.stringify(person))
+                          }
+                  
+                            
+                           
+                            RenderPerson()
+                            setOpenUserTab(false)
+                            
+                          }}>
+                             {post.email}
+                          </li>
+                        )}
+                      </ul>
+                    );
                     
-                      <li key={post.id.id} className="li" style={listStyle} onClick={(e) => {
-                        const id = e.target.key={post}
-                        console.log("id", `'${id.post.uid}'`)
-                        const persons = JSON.parse(localStorage.getItem("addedPerson"))
-                        
-                        console.log("persons", persons)
-
-                        // const found = persons.find(uid => uid === `'${id.post.uid}'` )
-
-                        // console.log("found", found)
-
-                        // // if()
-
-                        person.push(id.post)
-                        console.log("person", person)
-                        localStorage.setItem("addedPerson", JSON.stringify(person))
-                        RenderPerson()
-                        setOpenUserTab(false)
-                        
-                      }}>
-                         {post.email}
-                      </li>
-                    )}
-                  </ul>
-                );
+                    return (
+                      <div>
+                        {sidebar}
+                      </div>
+                    );
+                  }
+                  
+                  const posts = array
+                  
+                  ReactDOM.render(
+                    <Blog posts={posts} />,
+                    document.getElementById('trial')
+                  );
+  
+            }else if(newArray.filter(isFiltered)){
+              
+              function isFiltered(value) {
+                return value >= `${searchTerm}`
+              }
+              let searchVal = newArray.filter(isFiltered)
+  
+              function render(){
+  
                 
+                function NumberList(props) {
+                const numbers = props.numbers;
+                const listItems = numbers.map((number) =>
+                  <li key={props.numbers} className="li" style={listStyle} onClick={(e) => {
+                            const id = e.target.key={number}
+                            
+                            const user = array.find( ({uid}) => uid === `${id.number}` )
+                            if(addedPerson.find(({uid}) => uid === `${id.number}` )){
+                              console.log("Same Person")
+                            }else{console.log("New Person")
+                            person.push(user)
+                            localStorage.setItem("addedPerson", JSON.stringify(person))
+                          }
+                            
+                           
+                            RenderPerson()
+                            setOpenUserTab(false)
+                            
+                          }}>{number}</li>
+                );
                 return (
-                  <div>
-                    {sidebar}
-                  </div>
+                  <ul>{listItems}</ul>
                 );
               }
               
-              const posts = array
-              
+              const numbers = searchVal.sort();
               ReactDOM.render(
-                <Blog posts={posts} />,
+                <NumberList numbers={numbers} />,
                 document.getElementById('trial')
-              );
-
-        }
+              );}
+              render()
+            }}
         
     }
+
+    
 
     const delayRender=()=>{
         setTimeout(() => {
@@ -107,7 +174,7 @@ function AddPerson({setOpenUserTab}){
     return(
         <div className="addPersonWrapper">
             <div className="directMessageTitle">All direct messages</div>
-            <input  className="searchPerson" placeholder="To: @somebody or somebody@example.com"></input>
+            <input  className="searchPerson" placeholder="To: @somebody or somebody@example.com" onChange={event => {setSearchTerm(event.target.value);}}></input>
             <div id="trialWrapper">
                 <div id="trial" ></div>
             </div>

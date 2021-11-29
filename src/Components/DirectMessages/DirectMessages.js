@@ -35,9 +35,8 @@ function DirectMessages(){
             <div id="messageIcon">{icons}</div>
             <div id="directMessage"   onClick={()=>{
                         
-                         icon2()
-                         console.log("directMessage")
-                        RenderPerson()
+                icon2()
+                RenderPerson()
 
             }}>Direct Messages</div>
             <div id="addPerson" onClick={()=>{setUserTabOpen(true)}}></div>

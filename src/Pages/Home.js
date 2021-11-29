@@ -153,7 +153,7 @@ const Home = ({ setClient }) => {
           ))
          /*: renderChannels()} */}
 
-      <button
+      <button id="logoutButton"
         onClick={(e) => {
           e.preventDefault();
           handleLogout();

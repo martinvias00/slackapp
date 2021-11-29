@@ -1,5 +1,9 @@
 import ReactDOM from "react-dom"
 import Messages from "../Messages"
+import RetrieveMessages from "./RetrieveMessage"
+import RenderRetrievedMessages from "./RendeRetrievedMessages"
+import {IoPersonCircleOutline} from "react-icons/io5"
+
 
 
 const RenderPerson=()=>{
@@ -8,19 +12,34 @@ const RenderPerson=()=>{
         ReactDOM.render(<div>{uid}</div>, document.querySelector(".channelName"))
     }
     const persons = JSON.parse(localStorage.getItem("addedPerson"))
+    console.log(persons)
+
+    if(!persons){}else{
     function Blog(props) {
         const sidebar = (
           <ul className="ul">
             {props.posts.map((post) =>
             
-              <li key={post.id.id} className="li" style={listStyle} onClick={(e) => {
+              <li key={post.id} className="li" style={listStyle} onClick={(e) => {
                 const id = e.target.key={post};
-
-                localStorage.setItem("uid",JSON.stringify(id.post.uid));
+                Window.uid = id.post.uid
+                Window.id = id.post.id
+  
                 Messages()
                 renderName()
+                RetrieveMessages()
+
+                setTimeout(() => {
+                  RenderRetrievedMessages()
+                }, 100);
               }}>
-                 {post.email}
+                <div id="userIdDiv">
+                  <IoPersonCircleOutline id="personCircleOutline"/> 
+                  { post.uid}
+                </div>
+                <div>
+                  {}
+                </div>
               </li>
             )}
           </ul>
@@ -39,6 +58,7 @@ const RenderPerson=()=>{
         <Blog posts={posts} />,
         document.getElementById('userTab')
       );
+    }
 }
 
 export default RenderPerson;

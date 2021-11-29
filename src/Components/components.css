@@ -79,3 +79,20 @@
     width: 98.2%;
     border: 1px solid rgb(146, 140, 140);
 }
+
+.conversationAreaWrapper{
+position: absolute;
+overflow: hidden;
+}
+.convoInsideWrapper{
+    position: relative;
+    overflow: scroll;
+
+}
+
+/* #profile{
+    position: relative;
+    min-height: 18.8vh;
+    max-height: 75vh;
+    border: 1px solid rgb(168, 165, 165);
+} */

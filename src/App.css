@@ -25,7 +25,7 @@
   grid-area: aside;
 }
 
-.messages{
+#messages{
   grid-area: messages;
 }
 
@@ -84,4 +84,10 @@
   text-align: left;
   padding-left: 20px;
   font-size: 2.2vh;
+}
+
+#logoutButton{
+  position: absolute;
+  width: 13.6%;
+  bottom: 0%;
 }
