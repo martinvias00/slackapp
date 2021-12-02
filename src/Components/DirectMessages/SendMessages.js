@@ -4,22 +4,22 @@ const URL = process.env.REACT_APP_URL;
 
 function SendMessages(){
 
-    const getheaders = JSON.parse(localStorage.getItem("client"))
+    const getheaders = JSON.parse(localStorage.getItem("newUser"))
     const id = Window.id
 
     if(getheaders){
-        var {accessToken, client, expiry, uid} = getheaders;
+        var {token, client, expiry, uid} = getheaders;
     }
-    const message = document.querySelector(".enterMessage").value
+    const message = document.getElementById("enterMessage").value
     const options = {
         method: 'POST',
         url: `${URL}/api/v1/messages`,
         headers: {
-          'access-token': `${accessToken}`,
-            client: `${client}`,
-            expiry: `${expiry}`,
-            uid: `${uid}`
-        },
+          'access-token': `${token}`,
+          client: `${client}`,
+          expiry: `${expiry}`,
+          uid: `${uid}`
+      },
         data: {receiver_id: id, receiver_class: 'User', body: `${message}`}
       };
       

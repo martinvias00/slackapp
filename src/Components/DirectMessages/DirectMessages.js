@@ -29,7 +29,7 @@ function DirectMessages(){
 
     return(
         <div>
-            <div id="directMessageDiv" onMouseEnter={() => {renderAdd()}} onMouseLeave={() => {setTimeout(() => {
+            <div className="flex w-full h-6 ml-3" onMouseEnter={() => {renderAdd()}} onMouseLeave={() => {setTimeout(() => {
                 (noRender())
             },1000);}}>
             <div id="messageIcon">{icons}</div>

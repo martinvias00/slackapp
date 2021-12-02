@@ -18,7 +18,7 @@ function RenderRetrievedMessages(){
 
           post.data.map((post) =>
 
-          <li key={post.body} className="li" style={listStyle} >
+          <li key={post.body} className="m-5" >
                 <div id="messageFormat">
                   <IoPersonCircleOutline id="personIcon"/>
                   <div id="messageSender">{post.sender.email}</div>
@@ -54,8 +54,3 @@ function RenderRetrievedMessages(){
 
 export default RenderRetrievedMessages;
 
-const listStyle = {
-    listStyleType: "none",
-    margin: "3px",
-    fontSize: ".8vw"
-}

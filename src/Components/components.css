@@ -63,23 +63,6 @@
     transform: translate(-50%, -50%);
 }
 
-.enterMessageDiv{
-    position: absolute;
-    left: 14.6%;
-    bottom: 2.6%;
-    width: 84.2%;
-    height: 8vh;
-    border: 1px solid rgb(48, 47, 47);
-    border-radius: 5px;
-}
-
-.enterMessage{
-    
-    height: 3.7vh;
-    width: 98.2%;
-    border: 1px solid rgb(146, 140, 140);
-}
-
 .conversationAreaWrapper{
 position: absolute;
 overflow: hidden;
@@ -89,10 +72,3 @@ overflow: hidden;
     overflow: scroll;
 
 }
-
-/* #profile{
-    position: relative;
-    min-height: 18.8vh;
-    max-height: 75vh;
-    border: 1px solid rgb(168, 165, 165);
-} */

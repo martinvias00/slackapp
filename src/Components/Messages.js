@@ -5,47 +5,7 @@ import RenderRetrievedMessages from "./DirectMessages/RendeRetrievedMessages";
 import {AiOutlineSend} from "react-icons/ai"
 
 function Messages() {
-  const retrieve = JSON.parse(localStorage.getItem("retrievedMessages"))
   
-  let profileStyle;
-  let convoStyle;
-  const profile1 = {
-    position: "relative",
-    height: "18.8vh",
-    border: "1px solid rgb(168, 165, 165)"
-  }
-  
-  const profile2 = {
-    position: "relative",
-    height: "70.8vh",
-    border: "1px solid rgb(168, 165, 165)"
-  }
-  
-  const convo1={
-    position: "relative",
-    top: "9.5%",
-    width: "86.28vw",
-    height: "59vh"
-  }
-  
-  const convo2={
-    position: "relative",
-    top: "9.5%",
-    width: "86.28vw",
-    height: "5vh"
-  }
-
-  if(retrieve){
-  
-  if(retrieve[0].data.length===0){
-    profileStyle=profile2
-    convoStyle=convo2
-    console.log("profile2")
-  }else{ 
-    console.log("profile1")
-    profileStyle=profile1
-    convoStyle=convo1}
-  }
   
     return (
         <main >
@@ -54,17 +14,20 @@ function Messages() {
           </div>
           <div className="conversationAreaWrapper">
             <div className="convoInsideWrapper">
-              <div style={profileStyle} /*id="profile"*/>PROFILE</div>
-              <div style={convoStyle} className="conversationArea"></div>
+              <div className="conversationArea"></div>
             </div>
           </div>
-          <div className="enterMessageDiv">
-            <input className="enterMessage" onKeyUp={(e) => {if(e.keyCode === 13){SendMessages();
-                RetrieveMessages(); setTimeout(() => {
-                  RenderRetrievedMessages()
-                }, 100); e.target.value=''}}}></input>
-            <div>
-              <AiOutlineSend onClick={(e)=>{
+          <div className="absolute left-72 bottom-11 w-10/12 h-10 flex flex-row">
+            <input className=" h-12 border-gray-400 border w-full" id="enterMessage" onKeyUp={(e) => {if(e.keyCode === 13){
+              SendMessages();
+              RetrieveMessages(); 
+              setTimeout(() => {
+                RenderRetrievedMessages()
+                }, 100); 
+              e.target.value=''}}}>
+            </input>
+            <div className=" text-4xl hover:text-green-700 cursor-pointer block m-auto w-14">
+              <AiOutlineSend className=" block m-auto " onClick={(e)=>{
                 SendMessages()
                 RetrieveMessages()
                 setTimeout(() => {

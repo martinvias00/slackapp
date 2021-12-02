@@ -3,11 +3,11 @@ import axios from "axios";
 const URL = process.env.REACT_APP_URL;
 
 function RetrieveMessages(){
-    const getheaders = JSON.parse(localStorage.getItem("client"))
+    const getheaders = JSON.parse(localStorage.getItem("newUser"))
     const id = Window.id
 
     if(getheaders){
-        var {accessToken, client, expiry, uid} = getheaders;
+        var {token, client, expiry, uid} = getheaders;
     }
 
     const options = {
@@ -15,7 +15,7 @@ function RetrieveMessages(){
     url: `${URL}/api/v1/messages`,
     params: {receiver_id: id, receiver_class: 'User'},
     headers: {
-        'access-token': `${accessToken}`,
+        'access-token': `${token}`,
                 client: `${client}`,
                 expiry: `${expiry}`,
                 uid: `${uid}`

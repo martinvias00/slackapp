@@ -12,15 +12,14 @@ const RenderPerson=()=>{
         ReactDOM.render(<div>{uid}</div>, document.querySelector(".channelName"))
     }
     const persons = JSON.parse(localStorage.getItem("addedPerson"))
-    console.log(persons)
 
     if(!persons){}else{
     function Blog(props) {
         const sidebar = (
-          <ul className="ul">
+          <ul>
             {props.posts.map((post) =>
             
-              <li key={post.id} className="li" style={listStyle} onClick={(e) => {
+              <li key={post.id} className="m-1" onClick={(e) => {
                 const id = e.target.key={post};
                 Window.uid = id.post.uid
                 Window.id = id.post.id
