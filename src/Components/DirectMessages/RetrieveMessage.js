@@ -1,9 +1,11 @@
 import axios from "axios";
 
 const URL = process.env.REACT_APP_URL;
+const retrievedMessage = JSON.parse(localStorage.getItem("retrievedMessages"))
 
 function RetrieveMessages(){
     const getheaders = JSON.parse(localStorage.getItem("newUser"))
+    
     const id = Window.id
 
     if(getheaders){
@@ -30,9 +32,14 @@ function RetrieveMessages(){
     });
 }
 
-// setInterval(() => {
-//     RetrieveMessages()
-// }, 5000);
+if(!retrievedMessage){}else{
+    var retrieveinterval = setInterval(() => {
+        RetrieveMessages()
+    }, 5000);
 
+    Window.intevalValue = retrieveinterval
+}
+
+window.onload = clearInterval( retrieveinterval )
 
 export default RetrieveMessages;

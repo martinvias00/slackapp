@@ -14,6 +14,7 @@ import { AiOutlineHistory } from "react-icons/ai";
 import { FiHelpCircle } from "react-icons/fi";
 import { HiPencilAlt } from "react-icons/hi";
 import request from "../util/request";
+import RenderRetrievedMessages from "../Components/DirectMessages/RendeRetrievedMessages";
 
 const Home = ({ setClient }) => {
   const navigate = useNavigate();
@@ -30,6 +31,10 @@ const Home = ({ setClient }) => {
   const [listOfMember, setlistOfMember] = useState("");
   const [channel, setchannel] = useState([]);
   const [isSuccess, setisSuccess] = useState(0);
+  
+  const setInterval = Window.timeValue
+  const retrieveinterval = Window.intevalValue
+
 
   const handleResponse = (data) => {
     const shows = data.map((item) => ({ id: item.id, name: item.name }));
@@ -98,13 +103,15 @@ const Home = ({ setClient }) => {
         </Routes>
       </span>
       {searchModalOpen && <Search setOpenSearchModal={setSearchModalOpen} />}
-
+      
       {/* render user channels */}
 
       <button id="logoutButton"
         onClick={(e) => {
           e.preventDefault();
           handleLogout();
+          clearInterval(setInterval);
+          clearInterval(retrieveinterval)
         }}
       >
         logout
