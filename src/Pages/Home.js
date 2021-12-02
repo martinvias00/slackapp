@@ -4,8 +4,8 @@ import { Routes, Route, Link, useNavigate } from "react-router-dom";
 import "../App.css";
 
 import Messages from "../Components/Messages";
-import Message2 from "../Components/Message2";
 import Search from "../Components/Search";
+import DirectMessages from "../Components/DirectMessages/DirectMessages";
 
 import Channel from "../Components/Channel";
 import AddChannel from "../Components/Channel/AddChannel";
@@ -17,7 +17,7 @@ import request from "../util/request";
 
 const Home = ({ setClient }) => {
   const navigate = useNavigate();
-  const [searchModalOpen, setSearchModalOpen] = useState(true);
+  const [searchModalOpen, setSearchModalOpen] = useState(false);
   const handleLogout = () => {
     request.rmLocalClient();
     navigate("/", { replace: true });
@@ -101,14 +101,13 @@ const Home = ({ setClient }) => {
       <span id="messages">
         <Routes>
           <Route path="/" element={<Messages />} />
-          <Route path="about" element={<Message2 />} />
         </Routes>
       </span>
       {searchModalOpen && <Search setOpenSearchModal={setSearchModalOpen} />}
 
       {/* render user channels */}
 
-      <button
+      <button id="logoutButton"
         onClick={(e) => {
           e.preventDefault();
           handleLogout();

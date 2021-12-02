@@ -63,19 +63,12 @@
     transform: translate(-50%, -50%);
 }
 
-.enterMessageDiv{
-    position: absolute;
-    left: 14.6%;
-    bottom: 2.6%;
-    width: 84.2%;
-    height: 8vh;
-    border: 1px solid rgb(48, 47, 47);
-    border-radius: 5px;
+.conversationAreaWrapper{
+position: absolute;
+overflow: hidden;
 }
+.convoInsideWrapper{
+    position: relative;
+    overflow: scroll;
 
-.enterMessage{
-    
-    height: 3.7vh;
-    width: 99.7%;
-    border: 1px solid rgb(146, 140, 140);
 }
