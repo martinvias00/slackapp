@@ -1,12 +1,14 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
+import { AiOutlineUser } from "react-icons/ai";
+import { RiLockPasswordLine } from "react-icons/ri";
 
-import Input from "../Components/Fieldset/Input";
-import Loading from "../Components/Loadingscreen/Loading";
-import Success from "../Components/Loadingscreen/Success";
+import Input from "../Components/Input";
+import Loading from "../Components/Loading";
+import Success from "../Components/Loading/Success";
 import request from "../util/request";
 
-const Register = ({ onRegister, setonRegister }) => {
+const Register = () => {
   const history = useNavigate();
   const [users] = useState([]);
   const [email, setemail] = useState("");
@@ -86,76 +88,144 @@ const Register = ({ onRegister, setonRegister }) => {
   };
 
   return (
-    <div style={registerContainer}>
-      <main style={mainContainer}>
-        <h1 style={formHeader}>Create your Account</h1>
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            handleSubmit(e);
-          }}
-          style={formStyle}
-        >
-          {loading ? <Loading /> : null}
-          {complete ? <Success /> : null}
-          <Input
-            name="Email"
-            type="email"
-            placeholder="Email"
-            value={email}
-            setState={setemail}
-            inputStyle={{ width: "430px", height: "30px" }}
-            errorMessage={emailError}
-          />
-
-          <Input
-            name="Password"
-            type="password"
-            placeholder="Password"
-            value={Password}
-            setState={setPassword}
-            errorMessage={passwordError}
-          />
-          <Input
-            name="Confirm"
-            type="password"
-            placeholder="Confirm"
-            value={confirm}
-            setState={setconfirm}
-            errorMessage={passwordError}
-          />
-
-          <div style={actionBtnWrappers}>
-            <button
-              style={signInWrapper}
-              onClick={() => history("/", { replace: true })}
-            >
-              Sign in instead
-            </button>
-
-            <button type="submit" style={buttonSubmitStyle}>
-              Create
-            </button>
+    <div className="mx-auto container flex items-center " id="nav">
+      <div className="mx-auto md:p-6 md:w-1/2">
+        <main className="w-full pt-2 p-4 ">
+          <div className="flex flex-col justify-center ">
+            <h1 className="text-2xl text-gray-700 font-semibold transition duration-500 p-4 flex justify-center">
+              <i className="fas fa-sign-in-alt fa-fw fa-lg"></i>
+              Create your Account
+            </h1>
           </div>
-        </form>
-      </main>
-      <footer
-        style={{ width: "430px", display: "flex", justifyContent: "center" }}
-      >
-        <h5 style={{ flex: 1, textAlign: "left" }}>English</h5>
-        <ul
-          style={{
-            width: "50%",
-            display: "flex",
-            justifyContent: "space-around",
-          }}
-        >
-          <li style={liFooterStyle}>Help</li>
-          <li style={liFooterStyle}>Privacy</li>
-          <li style={liFooterStyle}>Terms</li>
-        </ul>
-      </footer>
+
+          <div className=" shadow-md rounded px-8 pt-6 pb-8 mb-4 ">
+            {loading ? <Loading /> : null}
+            {complete ? <Success /> : null}
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSubmit(e);
+              }}
+            >
+              <Input
+                name="Email"
+                type="email"
+                placeholder="Email"
+                setState={setemail}
+                errormessage={emailError}
+                icon={<AiOutlineUser />}
+              />
+
+              <Input
+                name="Password"
+                type="password"
+                placeholder="Password"
+                setState={setPassword}
+                errormessage={passwordError}
+                icon={<RiLockPasswordLine />}
+              />
+              <Input
+                name="Confirm"
+                type="password"
+                placeholder="Confirm"
+                setState={setconfirm}
+                errormessage={passwordError}
+                icon={<RiLockPasswordLine />}
+              />
+
+              <div className="mb-8 text-center bg-gray-500 flex hover:bg-gray-700 ">
+                <button
+                  className=" text-white font-bold py-2  rounded focus:outline-none focus:shadow-outline w-full"
+                  type="submit"
+                >
+                  Create
+                </button>
+              </div>
+              <hr />
+              <div className="mt-8 flex">
+                <a
+                  className="font-bold text-sm text-gray-700 hover:text-gray-800 cursor-pointer"
+                  onClick={() => history("/", { replace: true })}
+                >
+                  Sign in instead
+                </a>
+              </div>
+            </form>
+          </div>
+        </main>
+      </div>
     </div>
+
+    // <div style={registerContainer}>
+    //   <main style={mainContainer}>
+    //     <h1 style={formHeader}>Create your Account</h1>
+    //     <form
+    //       onSubmit={(e) => {
+    //         e.preventDefault();
+    //         handleSubmit(e);
+    //       }}
+    //       style={formStyle}
+    //     >
+    //       {loading ? <Loading /> : null}
+    //       {complete ? <Success /> : null}
+    //       <Input
+    //         name="Email"
+    //         type="email"
+    //         placeholder="Email"
+    //         value={email}
+    //         setState={setemail}
+    //         inputStyle={{ width: "430px", height: "30px" }}
+    //         errorMessage={emailError}
+    //       />
+
+    //       <Input
+    //         name="Password"
+    //         type="password"
+    //         placeholder="Password"
+    //         value={Password}
+    //         setState={setPassword}
+    //         errorMessage={passwordError}
+    //       />
+    //       <Input
+    //         name="Confirm"
+    //         type="password"
+    //         placeholder="Confirm"
+    //         value={confirm}
+    //         setState={setconfirm}
+    //         errorMessage={passwordError}
+    //       />
+
+    //       <div style={actionBtnWrappers}>
+    //         <button
+    //           style={signInWrapper}
+    //           onClick={() => history("/", { replace: true })}
+    //         >
+    //           Sign in instead
+    //         </button>
+
+    //         <button type="submit" style={buttonSubmitStyle}>
+    //           Create
+    //         </button>
+    //       </div>
+    //     </form>
+    //   </main>
+    //   <footer
+    //     style={{ width: "430px", display: "flex", justifyContent: "center" }}
+    //   >
+    //     <h5 style={{ flex: 1, textAlign: "left" }}>English</h5>
+    //     <ul
+    //       style={{
+    //         width: "50%",
+    //         display: "flex",
+    //         justifyContent: "space-around",
+    //       }}
+    //     >
+    //       <li style={liFooterStyle}>Help</li>
+    //       <li style={liFooterStyle}>Privacy</li>
+    //       <li style={liFooterStyle}>Terms</li>
+    //     </ul>
+    //   </footer>
+    // </div>
   );
 };
 

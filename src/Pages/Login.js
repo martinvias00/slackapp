@@ -1,13 +1,20 @@
-import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
+import { AiOutlineUser } from "react-icons/ai";
+import { RiLockPasswordLine } from "react-icons/ri";
+import { useNavigate } from "react-router-dom";
 
-import Input from "../Components/Fieldset/Input";
+import Input from "../Components/Input";
+import ErrorMessage from "../Components/Alerts/ErrorMessage";
+
 import request from "../util/request";
 
-const Login = ({ setClient, setonRegister }) => {
-  const history = useNavigate();
+const Login = () => {
   const [username, setusername] = useState("");
   const [password, setpassword] = useState("");
+  const [errorUsername, seterrorUsername] = useState("");
+  const [errorPassword, seterrorPassword] = useState("");
+  const [IsError, setIsError] = useState(null);
+  const nav = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -18,117 +25,110 @@ const Login = ({ setClient, setonRegister }) => {
         password: password,
       },
     };
-    request
-      .login(params)
-      .then((response) => {
-        if (response.status === 200) {
-          history("/home", { replace: true });
-        }
-      })
-      .catch((error) => {
-        alert(error.response.data.errors);
-      });
-    setusername("");
-    setpassword("");
+    if (username === "") {
+      seterrorUsername("! Username is required");
+      if (password !== "") {
+        seterrorPassword("");
+      }
+    } else {
+      seterrorUsername("");
+      if (password === "") {
+        seterrorPassword("! Password is required");
+      } else {
+        seterrorPassword("");
+        request
+          .login(params)
+          .then((response) => {
+            if (response.status < 201) {
+              nav("/home", { replace: true });
+            }
+          })
+          .catch((error) => {
+            setIsError(error.response.data.errors);
+          });
+      }
+    }
   };
-
   return (
-    <div style={ContainerStyle}>
-      <header style={{ height: "100px" }}></header>
-
-      <div style={leftSideContainer}>
-        <h1>Slack App</h1>
-      </div>
-
-      <div style={LoginContainerStyle}>
-        <form style={loginStyle} onSubmit={handleSubmit}>
-          <Input
-            name="Username"
-            placeholder="Username"
-            setState={setusername}
-            type="text"
-            errorMessage=""
-          />
-          <Input
-            name="password"
-            placeholder="Password"
-            setState={setpassword}
-            type="password"
-            errorMessage=""
-          />
-          <div style={btnWrapper}>
-            <button style={loginBtnStyle} type="submit">
-              Log In
-            </button>
-            <button
-              style={signupBtnStyle}
-              onClick={() => history("/register", { replace: true })}
-            >
-              Sign up
-            </button>
+    <div className="mx-auto container flex items-center " id="nav">
+      <div className="mx-auto md:p-6 md:w-1/2">
+        <div className="w-full pt-2 p-4 ">
+          <div className="flex flex-col justify-center ">
+            <h1 className="text-2xl text-gray-700 font-semibold transition duration-500 p-4 flex justify-center">
+              <i className="fas fa-sign-in-alt fa-fw fa-lg"></i>
+              Sign in
+            </h1>
+            <h2 className="text-1xl text-gray-700 transition duration-500 flex justify-center">
+              Enter your Email and Password
+            </h2>
           </div>
-        </form>
+
+          <div className=" rounded px-8 pt-6 pb-8 mb-4 ">
+            <form onSubmit={handleSubmit}>
+              <Input
+                name="Username"
+                icon={<AiOutlineUser />}
+                errormessage={errorUsername}
+                placeholder="you@example.com"
+                setState={setusername}
+                type="email"
+                isRequired={true}
+              />
+              <Input
+                name="Password"
+                icon={<RiLockPasswordLine />}
+                setState={setpassword}
+                type="password"
+                errormessage={errorPassword}
+              />
+              {IsError && <ErrorMessage title={"Error!"} message={IsError} />}
+              <div className="mb-6">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <label
+                      className="block text-gray-500 font-bold"
+                      for="remember"
+                    >
+                      <input
+                        className="ml-2 leading-tight"
+                        type="checkbox"
+                        id="remember"
+                        name="remember"
+                      ></input>
+                      <span className="text-sm">remember me</span>
+                    </label>
+                  </div>
+                  <div>
+                    <a className="font-bold text-sm text-gray-700 hover:text-gray-800">
+                      forgot password
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div className="mb-8 text-center bg-gray-500 flex hover:bg-gray-700 ">
+                <button
+                  className="text-lg text-white font-bold py-2  rounded focus:outline-none focus:shadow-outline w-full"
+                  type="submit"
+                >
+                  Sign in
+                </button>
+              </div>
+              <hr />
+              <div className="mt-8 flex">
+                <p className="text-sm pr-4">No account</p>
+                <a
+                  className="font-bold text-sm text-gray-700 hover:text-gray-800 cursor-pointer"
+                  onClick={() => nav("/register", { replace: true })}
+                >
+                  Sign up
+                </a>
+              </div>
+            </form>
+          </div>
+        </div>
       </div>
-      <footer style={{ height: "100px" }}></footer>
     </div>
   );
 };
 export default Login;
-const ContainerStyle = {
-  width: "100vw",
-  height: "100vh",
-  display: "flex",
-  alignItems: "center",
-};
-const leftSideContainer = {
-  width: "50vw",
-  height: "500px",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-};
-const LoginContainerStyle = {
-  width: "inherit",
-  height: "500px",
-  display: "flex",
-  alignItems: "center",
-  fontFamily: "'Open Sans', sans-serif",
-  fontSize: "20px",
-};
-const loginStyle = {
-  margin: "auto",
-  padding: "10px",
-  borderRadius: "5px",
-  background: "#f5f5f5",
-  height: "315px",
-  width: "396px",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-};
-const btnWrapper = {
-  height: "50%",
-  width: "85%",
-  display: "flex",
-  justifyContent: "center",
-  flexDirection: "column",
-};
-
-const signupBtnStyle = {
-  paddingTop: "20px",
-  border: "none",
-  backgroundColor: "transparent",
-  resize: "none",
-  outline: "none",
-  color: "#2d3038",
-  fontWeight: "bold",
-};
-const loginBtnStyle = {
-  width: "100%",
-  height: "50px",
-  borderRadius: "4px",
-  backgroundColor: "#2d3038",
-  color: "white",
-  fontWeight: "bold",
-};
