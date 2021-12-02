@@ -64,7 +64,6 @@
     width: 86.28vw;
     height: 95.9vh;
     background: white;
-    border: 1px solid rgb(168, 165, 165);
     z-index: 1;
     
 }
@@ -96,24 +95,8 @@ input{
     padding-left: 25px;
 }
 
-#trialWrapper{
-    position: relative;
-    overflow: scroll;
-    width: 99.9%;
-    height: 85.4vh;
-    border: 1px solid rgb(187, 185, 185);
-}
 ::-webkit-scrollbar {
     display: none;
-} 
-#trial{
-    overflow-y: scroll;
-    cursor: pointer;
-}
-
-.ul{
-  position: absolute;
-  left: -7%;
 } 
 
 #messageFormat{

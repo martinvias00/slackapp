@@ -72,91 +72,90 @@ function AddPerson({setOpenUserTab}){
         return value = `${searchTerm}`
       }
 
-        if(searchTerm===''){
-          function Blog(props) {
+      if(searchTerm===''){
+        const posts = array
 
-            const sidebar = (
+        function Blog(props) {
 
-              <ul>
-                {props.posts.map((post) =>
-                
-                  <li key={post.id} className="m-3 text-3xl relative left-1/3 transform -translate-x-1/4 text-left" onClick={(e) => {
-                    const id = e.target.key={post}
+          const sidebar = (
 
-                    if((addedPerson.map(uid=> uid.uid)).find(uid=> uid === `${id.post.uid}` )){
-                      
-                    }else{
-                    person.push(id.post)
-                    localStorage.setItem("addedPerson", JSON.stringify(person))
+            <ul>
+              {props.posts.map((post) =>
+              
+                <li key={post.id} className="m-3 text-2xl relative text-left pl-10 hover:bg-gray-800 hover:text-white w-full" onClick={(e) => {
+                  const id = e.target.key={post}
+
+                  if((addedPerson.map(uid=> uid.uid)).find(uid=> uid === `${id.post.uid}` )){
+                    
+                  }else{
+                  person.push(id.post)
+                  localStorage.setItem("addedPerson", JSON.stringify(person))
                   }
 
-                    RenderPerson()
-                    setOpenUserTab(false)
-                    
-                  }}>
-                      {post.email}
-                  </li>
-                )}
-              </ul>
-            );
-            
-            return (
-              <div>
-                {sidebar}
-              </div>
-            );
-          }
-              
-          const posts = array
-          
-          ReactDOM.render(
-            <Blog posts={posts} />,
-            document.getElementById('trial')
+                  RenderPerson()
+                  setOpenUserTab(false)
+                  
+                }}>
+                    {post.email}
+                </li>
+              )}
+            </ul>
           );
-
-        }else if(newArray.filter(isFiltered)){
           
-          function isFiltered(value) {
-            return value >= `${searchTerm}`
-          }
-          let searchVal = newArray.filter(isFiltered)
+          return (
+            <div>
+              {sidebar}
+            </div>
+          );
+        }
+      
+        ReactDOM.render(
+          <Blog posts={posts} />,
+          document.getElementById('personList')
+        );
 
-          function render(){
+      }else if(newArray.filter(isFiltered)){
+        
+        function isFiltered(value) {
+          return value >= `${searchTerm}`
+        }
+        let searchVal = newArray.filter(isFiltered)
 
-            
-            function NumberList(props) {
-            const numbers = props.numbers;
-            const listItems = numbers.map((number) =>
-              <li key={props.numbers} className="m-3 text-3xl relative left-1/3 transform -translate-x-1/4 text-left" onClick={(e) => {
-                        const id = e.target.key={number}
-                        
-                        const user = array.find( ({uid}) => uid === `${id.number}` )
-                        if(addedPerson.find(({uid}) => uid === `${id.number}` )){
-                          
-                        }else{
-                        person.push(user)
-                        localStorage.setItem("addedPerson", JSON.stringify(person))
-                      }
+        function render(){
+
+          function NumberList(props) {
+          const numbers = props.numbers;
+          const listItems = numbers.map((number) =>
+            <li key={props.numbers} className="m-3 text-2xl relative text-left pl-10 hover:bg-gray-800 hover:text-white w-full" onClick={(e) => {
+                      const id = e.target.key={number}
                       
-                        RenderPerson()
-                        setOpenUserTab(false)
+                      const user = array.find( ({uid}) => uid === `${id.number}` )
+                      if(addedPerson.find(({uid}) => uid === `${id.number}` )){
                         
-                      }}>{number}</li>
-            );
-            return (
-              <ul>{listItems}</ul>
-            );
+                      }else{
+                      person.push(user)
+                      localStorage.setItem("addedPerson", JSON.stringify(person))
+                    }
+                    
+                      RenderPerson()
+                      setOpenUserTab(false)
+                      
+                    }}>{number}</li>
+          );
+          return (
+            <ul>{listItems}</ul>
+          );
           }
-          
+        
           const numbers = searchVal.sort();
           ReactDOM.render(
             <NumberList numbers={numbers} />,
-            document.getElementById('trial')
-          );}
-          render()
+            document.getElementById('personList')
+          );
         }
-    }
-      
+        render()
+      }
+    }  
   }
 
   const delayRender=()=>{
@@ -167,11 +166,11 @@ function AddPerson({setOpenUserTab}){
   delayRender()
 
   return(
-      <div className="addPersonWrapper">
+      <div className="addPersonWrapper" >
           <div className="directMessageTitle">All direct messages</div>
           <input  className="searchPerson" placeholder="To: @somebody or somebody@example.com" onChange={event => {setSearchTerm(event.target.value);}}></input>
-          <div id="trialWrapper">
-              <div id="trial" ></div>
+          <div className="relative overflow-scroll w-full h-5/6">
+              <div id="personList" ></div>
           </div>
       </div>
   )
