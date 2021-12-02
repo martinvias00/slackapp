@@ -79,7 +79,12 @@ const Home = ({ setClient }) => {
           <span className="workspaceName">Workspace</span>
           <HiPencilAlt className="pencilIcon" />
         </span>
-      
+        <nav>
+          <Link to="/about">{}</Link>
+          <nav>
+            <Link to="/">Direct Messages</Link>
+          </nav>
+        </nav>
 
         <details className="flex justify-start text-left pl-2">
           <summary>Channels</summary>
@@ -92,7 +97,6 @@ const Home = ({ setClient }) => {
           </p>
         </details>
         <AddChannel />
-        <DirectMessages/>
       </aside>
       <span id="messages">
         <Routes>
