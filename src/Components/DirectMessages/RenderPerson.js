@@ -19,7 +19,7 @@ const RenderPerson = () => {
           {props.posts.map((post) => (
             <li
               key={post.id}
-              className="m-1"
+              className="m-1 hover:bg-green-300"
               onClick={(e) => {
                 const id = (e.target.key = { post });
                 Window.uid = id.post.uid;
