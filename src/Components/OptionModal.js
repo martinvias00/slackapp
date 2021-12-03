@@ -1,18 +1,26 @@
 import { Link, useNavigate } from "react-router-dom";
 import request from "../util/request";
-const OptionModal = ({ setChannelSettings }) => {
+const OptionModal = ({
+  setChannelSettings,
+  isChannelSettings,
+  toggleOption,
+  settoggleOption,
+}) => {
   const navigate = useNavigate();
   const setInterval = Window.timeValue;
   const retrieveinterval = Window.intevalValue;
   return (
-    <div class="relative inline-block text-left">
+    <div class="relative inline-block text-left z-20">
       <div>
         <button
           type="button"
-          class="inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
+          class=" z-20 inline-flex justify-center w-full rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500"
           id="menu-button"
           aria-expanded="true"
           aria-haspopup="true"
+          onClick={() => {
+            settoggleOption(!toggleOption);
+          }}
         >
           Options
           <svg
@@ -30,47 +38,48 @@ const OptionModal = ({ setChannelSettings }) => {
           </svg>
         </button>
       </div>
-
-      <div
-        class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
-        role="menu"
-        aria-orientation="vertical"
-        aria-labelledby="menu-button"
-        tabindex="-1"
-      >
-        <Link
-          to={`/home/settings`}
-          style={{ textDecoration: "none" }}
-          onClick={() => {
-            setChannelSettings(true);
-          }}
+      {toggleOption && (
+        <div
+          class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none"
+          role="menu"
+          aria-orientation="vertical"
+          aria-labelledby="menu-button"
+          tabindex="-1"
         >
-          Channel settings
-        </Link>
-
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-          }}
-        >
-          <button
-            type="submit"
-            class="text-gray-700 block w-full text-left px-4 py-2 text-sm"
-            role="menuitem"
-            tabindex="-1"
-            id="menu-item-3"
-            onClick={(e) => {
-              e.preventDefault();
-              clearInterval(setInterval);
-              clearInterval(retrieveinterval);
-              request.rmLocalClient();
-              navigate("/", { replace: true });
+          <Link
+            to={`/home/settings`}
+            style={{ textDecoration: "none" }}
+            onClick={() => {
+              setChannelSettings(true);
             }}
           >
-            Sign out
-          </button>
-        </form>
-      </div>
+            Channel settings
+          </Link>
+
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+            }}
+          >
+            <button
+              type="submit"
+              class="text-gray-700 block w-full text-left px-4 py-2 text-sm"
+              role="menuitem"
+              tabindex="-1"
+              id="menu-item-3"
+              onClick={(e) => {
+                e.preventDefault();
+                clearInterval(setInterval);
+                clearInterval(retrieveinterval);
+                request.rmLocalClient();
+                navigate("/", { replace: true });
+              }}
+            >
+              Sign out
+            </button>
+          </form>
+        </div>
+      )}
     </div>
   );
 };

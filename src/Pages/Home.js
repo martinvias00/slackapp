@@ -41,6 +41,7 @@ const Home = ({ setClient }) => {
   const [channel, setchannel] = useState([]);
   const [isSuccess, setisSuccess] = useState(0);
   const [isInChannel, setisInChannel] = useState(false);
+  const [toggleOption, settoggleOption] = useState(false)
 
   useEffect(() => {
     renderChannelMessages();
@@ -196,7 +197,12 @@ const Home = ({ setClient }) => {
             <h1 className="w-full flex items-center justify-center font-semibold text-2xl">
               {currentChan && currentChan.name}
             </h1>
-            <OptionModal setChannelSettings={setisChannelSettings} />
+            <OptionModal
+              setChannelSettings={setisChannelSettings}
+              isChannelSettings={isChannelSettings}
+              toggleOption={toggleOption}
+               settoggleOption={settoggleOption}
+            />
           </div>
 
           <div className=" flex flex-col place-items-center h-3/4 overflow-y-scroll bottom-0">
@@ -248,7 +254,6 @@ const Home = ({ setClient }) => {
         </Routes>
       </span> */}
       {searchModalOpen && <Search setOpenSearchModal={setSearchModalOpen} />}
-      
     </div>
   );
 };

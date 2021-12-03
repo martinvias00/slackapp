@@ -62,7 +62,7 @@ const SearchUser = ({ setstate, value, filtered, members, setmembers }) => {
         />
         <button
           type="submit"
-          className="ml-2 bg-gray-300 h-auto rounded-md self-center top-2 p-1"
+          className="ml-2 bg-gray-300 h-auto rounded-md self-center top-2 p-1 z-10"
         >
           add
         </button>
