@@ -8,8 +8,9 @@ function SendMessages(){
     const id = Window.id
 
     if(getheaders){
-        var {token, client, expiry, uid} = getheaders;
-    }
+      var {client, expiry, uid} = getheaders.headers;
+      var token =  getheaders.headers["access-token"]
+  }
     const message = document.getElementById("enterMessage").value
     const options = {
         method: 'POST',

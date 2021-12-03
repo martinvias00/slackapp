@@ -8,7 +8,9 @@ const URL = process.env.REACT_APP_URL;
 const getheaders = JSON.parse(localStorage.getItem("newUser"))
 
 if(getheaders){
-    var {token, client, expiry, uid, id} = getheaders;
+    var {client, expiry, uid} = getheaders.headers;
+    var{id}= getheaders.data
+    var token =  getheaders.headers["access-token"]
 }
 
 const person=[]

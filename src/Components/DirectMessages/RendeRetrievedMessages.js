@@ -1,12 +1,11 @@
 import ReactDOM from "react-dom"
 import {IoPersonCircleOutline} from "react-icons/io5"
-const retrievedMessage = JSON.parse(localStorage.getItem("retrievedMessages"))
-let uid = Window.uid
+
 function RenderRetrievedMessages(){
 
   const retrievedMessage = JSON.parse(localStorage.getItem("retrievedMessages"))
    
-  uid = Window.uid
+  let uid = Window.uid
 
   if(!retrievedMessage){}else{
 
@@ -49,15 +48,14 @@ function RenderRetrievedMessages(){
 
     var newInterval = setInterval(() => {
         RenderRetrievedMessages()
-    }, 8000);
+    }, 10000);
     
     Window.timeValue = newInterval
     
 }
-
+if(window.onload){clearInterval( newInterval )}
 
 }
 
-// window.onload = clearInterval( newInterval)
 export default RenderRetrievedMessages;
 

@@ -4,6 +4,8 @@ import "./index.css";
 const Channel = (props) => {
   const { name, channelid, setOnChannel, setrenderMessages, setcurrentChan } =
     props;
+  const setInterval = Window.timeValue;
+  const retrieveinterval = Window.intevalValue;
 
   return (
     <Link
@@ -15,6 +17,8 @@ const Channel = (props) => {
         className="ChatRoomItem"
         onClick={(e) => {
           e.isDefaultPrevented();
+          clearInterval(setInterval);
+          clearInterval(retrieveinterval);
           setOnChannel(true);
           setcurrentChan({ name: name, id: channelid });
           setrenderMessages(true);
