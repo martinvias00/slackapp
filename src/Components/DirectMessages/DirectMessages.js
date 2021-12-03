@@ -10,7 +10,7 @@ import AddPerson from "./Addperson";
 import RenderPerson from "./RenderPerson";
 
 
-function DirectMessages(){
+function DirectMessages({setisInChannel}){
     
     const [icons, setIcons]=useState(<VscTriangleRight/>)
     const [userTabOpen, setUserTabOpen]=useState(false)

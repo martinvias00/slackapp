@@ -34,20 +34,11 @@ export default class request {
       },
     };
     return request.API_REQUEST(params).then((response) => {
-      const userId = response.data.data.id;
-      const accessToken = response.headers["access-token"];
-      const { client, expiry, uid } = response.headers;
-
-      alert("Login Success!");
       const userData = {
-        id: userId,
-        token: accessToken,
-        client: client,
-        expiry: expiry,
-        uid: uid,
+        data: response.data.data,
+        headers: response.headers,
       };
       localStorage.setItem("newUser", JSON.stringify(userData));
-      console.log(userId, accessToken, client, expiry, uid);
       return response;
     });
   }
@@ -62,12 +53,115 @@ export default class request {
     return request.API_REQUEST(params);
   }
   static channels(params) {
-    console.log(params, "test");
+    const header = {
+      "Content-Type": "application/json",
+      "access-token": params["access-token"],
+      client: params.client,
+      expiry: params.expiry,
+      uid: params.uid,
+    };
     params = {
-      ...params,
+      header,
+      action: "GET",
+      path: "/api/v1/channels",
+    };
+    return request.API_REQUEST(params);
+  }
+  static alluserData(params) {
+    const header = {
+      "Content-Type": "application/json",
+      "access-token": params["access-token"],
+      client: params.client,
+      expiry: params.expiry,
+      uid: params.uid,
+    };
+    params = {
+      header,
+      path: "/api/v1/users",
       action: "GET",
     };
     return request.API_REQUEST(params);
+  }
+  static createChannel(params) {
+    const header = {
+      "access-token": params.header["access-token"],
+      client: params.header.client,
+      expiry: params.header.expiry,
+      uid: params.header.uid,
+      "Content-Type": "application/json",
+    };
+    params = {
+      data: params.data,
+      header,
+      path: "/api/v1/channels",
+      action: "POST",
+    };
+    return request.API_REQUEST(params);
+  }
+  static messageToChannel(params) {
+    const options = {
+      action: "POST",
+      path: "/api/v1/messages",
+      header: {
+        "Content-Type": "application/json; charset=utf-8",
+        "access-token": params["access-token"],
+        client: params.client,
+        expiry: params.expiry,
+        uid: params.uid,
+      },
+      data: { ...params.data, receiver_class: "Channel" },
+    };
+
+    return request.API_REQUEST(options);
+  }
+  static retriveCMessages(param) {
+    const options = {
+      action: "GET",
+      path: `/api/v1/messages?receiver_id=${param.channelId}&receiver_class=Channel`,
+      header: {
+        "Content-Type": "application/json; charset=utf-8",
+        "access-token": param["access-token"],
+        client: param.client,
+        expiry: param.expiry,
+        uid: param.uid,
+      },
+    };
+
+    return request.API_REQUEST(options);
+  }
+  static channelDetails(param) {
+    const options = {
+      action: "GET",
+      path: `/api/v1/channels/${param.channelId}`,
+      header: {
+        "Content-Type": "application/json; charset=utf-8",
+        "access-token": param["access-token"],
+        client: param.client,
+        expiry: param.expiry,
+        uid: param.uid,
+      },
+    };
+
+    return request.API_REQUEST(options);
+  }
+  static addMemberToChannel(params) {
+    const options = {
+      action: "POST",
+      path: "/api/v1/channel/add_member",
+      header: {
+        "Content-Type": "application/json; charset=utf-8",
+        "access-token": params["access-token"],
+        client: params.client,
+        expiry: params.expiry,
+        uid: params.uid,
+      },
+      data: {
+        id: params.channelId,
+        member_id: params.newMemberId,
+      },
+    };
+
+    return request.API_REQUEST(options);
   }
   static setLocalClient(data) {
     localStorage.setItem(client, JSON.stringify(data));
@@ -79,124 +173,3 @@ export default class request {
     localStorage.removeItem(client);
   }
 }
-
-// const options = {
-//   method: 'POST',
-//   url: '/api/v1/auth/',
-//   headers: {
-//      'Content-Type': 'application/json'
-//   },
-//   data: {
-//     email: 'mv004@example.com',
-//     password: '12345678',
-//     password_confirmation: '12345678'
-//   }
-// };
-
-// const options = {
-//   method: 'POST',
-//   url: '/api/v1/auth/sign_in',
-//   headers: {
-//       'Content-Type': 'application/json'
-//   },
-//   data: {email: 'mv00@gmail.com', password: '12345678'}
-// };
-
-// const options = {
-//   method: 'GET',
-//   url: '/api/v1/channels',
-//   headers: {
-//      'Content-Type': 'application/json',
-//     'access-token': 'p66GeQdz9-6ICoiBfzXC1Q',
-//     client: 'z3X2TNjfpc8YRt8CjVOcwA',
-//     expiry: '1638823037',
-//     uid: 'mv00@gmail.com'
-//   }
-// };
-// const options = {
-//   method: 'GET',
-//   url: '/api/v1/users',
-//   headers: {
-//         'Content-Type': 'application/json',
-//     'access-token': 'p66GeQdz9-6ICoiBfzXC1Q',
-//     client: 'z3X2TNjfpc8YRt8CjVOcwA',
-//     expiry: '1638823037',
-//     uid: 'mv00@gmail.com'
-//   }
-// };
-
-// const options = {
-// method: 'GET',
-// url: '/api/v1/channels/1854',
-// headers: {
-//     'Content-Type': 'application/json',
-//   'access-token': 'p66GeQdz9-6ICoiBfzXC1Q',
-//   client: 'z3X2TNjfpc8YRt8CjVOcwA',
-//   expiry: '1638823037',
-//   uid: 'mv00@gmail.com'
-// }
-// };
-
-// const options = {
-// method: 'GET',
-// url: '/api/v1/channels',
-// headers: {
-//     'Content-Type': 'application/json',
-//   'access-token': 'p66GeQdz9-6ICoiBfzXC1Q',
-//   client: 'z3X2TNjfpc8YRt8CjVOcwA',
-//   expiry: '1638823037',
-//   uid: 'mv00@gmail.com'
-// }
-// };
-
-// const options = {
-// method: 'GET',
-// url: '/api/v1/messages',
-// params: {receiver_id: '1281', receiver_class: 'User'},
-// headers: {
-//    'Content-Type': 'application/json',
-//   'access-token': 'LvqCmFp6k9yGSRyUxfNVDw',
-//   client: 'VEkJrKuPyX_Rs_efe_JnYg',
-//   expiry: '1638880274',
-//   uid: 'mv00@gmail.com'
-// }
-// };
-
-// const options = {
-// method: 'POST',
-// url: '/api/v1/messages',
-// headers: {
-//    'Content-Type': 'application/json',
-//   'access-token': 'p66GeQdz9-6ICoiBfzXC1Q',
-//   client: 'z3X2TNjfpc8YRt8CjVOcwA',
-//   expiry: '1638823037',
-//   uid: 'mv00@gmail.com'
-// },
-// data: {receiver_id: 1281, receiver_class: 'User', body: 'hello world!'}
-// };
-
-// const options = {
-// method: 'POST',
-// url: '/api/v1/channels',
-// headers: {
-//    'Content-Type': 'application/json',
-//   'access-token': 'p66GeQdz9-6ICoiBfzXC1Q',
-//   client: 'z3X2TNjfpc8YRt8CjVOcwA',
-//   expiry: '1638823037',
-//   uid: 'mv00@gmail.com'
-// },
-// data: {name: 'testchanl9', user_ids: [1254, 3, 1297, 1]}
-// };
-
-// const options = {
-// method: 'POST',
-// url: '/api/v1/channel/add_member',
-// headers: {
-//     'Content-Type': 'application/json',
-//   'access-token': 'p66GeQdz9-6ICoiBfzXC1Q',
-//   client: 'z3X2TNjfpc8YRt8CjVOcwA',
-//   expiry: '1638823037',
-//   uid: 'mv00@gmail.com'
-// },
-// data: {id: 1854, member_id: 1298}
-// };
