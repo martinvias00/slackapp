@@ -242,8 +242,13 @@ const Home = ({ setClient }) => {
           </Routes>
         </span>
       )}
-
+      {/* {/* <span id="messages">
+        <Routes>
+          <Route path="/" element={<Messages />} />
+        </Routes>
+      </span> */}
       {searchModalOpen && <Search setOpenSearchModal={setSearchModalOpen} />}
+      
     </div>
   );
 };

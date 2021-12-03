@@ -24,28 +24,24 @@ function Messages() {
               SendMessages();
               RetrieveMessages();
               setTimeout(() => {
-                RenderRetrievedMessages();
-              }, 100);
-              e.target.value = "";
-            }
-          }}
-        ></input>
-        <div className=" text-4xl hover:text-green-700 cursor-pointer block m-auto w-14">
-          <AiOutlineSend
-            className=" block m-auto "
-            onClick={(e) => {
-              SendMessages();
-              RetrieveMessages();
-              setTimeout(() => {
-                RenderRetrievedMessages();
-              }, 100);
-              e.target.value = "";
-            }}
-          />
-        </div>
-      </div>
-    </main>
-  );
+                RenderRetrievedMessages()
+                }, 200); 
+              e.target.value=''}}}>
+            </input>
+            <div className=" text-4xl hover:text-green-700 cursor-pointer block m-auto w-14">
+              <AiOutlineSend className=" block m-auto " onClick={(e)=>{
+                SendMessages()
+                RetrieveMessages()
+                setTimeout(() => {
+                  RenderRetrievedMessages()
+                }, 100);
+                e.target.value=''
+                }}/>
+            </div>
+          </div>
+        </main>
+      
+    );
 }
 
 export default Messages;
