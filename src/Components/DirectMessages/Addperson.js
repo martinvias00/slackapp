@@ -37,6 +37,7 @@ function AddPerson({setOpenUserTab}){
   const addedPerson = JSON.parse(localStorage.getItem("addedPerson"))
   const [get, setGet]=useState([]);
   const [searchTerm, setSearchTerm]=useState('')
+  Window.openUserTab = setOpenUserTab 
 
   useEffect(()=>{
 
@@ -82,21 +83,21 @@ function AddPerson({setOpenUserTab}){
             <ul>
               {props.posts.map((post) =>
               
-                <li key={post.id} className="m-3 text-2xl relative text-left pl-10 hover:bg-gray-800 hover:text-white w-full" onClick={(e) => {
+                <li key={post.id} className="m-3 text-2xl relative text-left pl-10 hover:bg-gray-800 hover:text-white w-full cursor-pointer" onClick={(e) => {
                   const id = e.target.key={post}
 
                   if((addedPerson.map(uid=> uid.uid)).find(uid=> uid === `${id.post.uid}` )){
                     
                   }else{
-                  person.push(id.post)
-                  localStorage.setItem("addedPerson", JSON.stringify(person))
+                    person.push(id.post)
+                    localStorage.setItem("addedPerson", JSON.stringify(person))
                   }
 
                   RenderPerson()
                   setOpenUserTab(false)
                   
                 }}>
-                    {post.email}
+                  {post.email}
                 </li>
               )}
             </ul>
@@ -126,21 +127,22 @@ function AddPerson({setOpenUserTab}){
           function NumberList(props) {
           const numbers = props.numbers;
           const listItems = numbers.map((number) =>
-            <li key={props.numbers} className="m-3 text-2xl relative text-left pl-10 hover:bg-gray-800 hover:text-white w-full" onClick={(e) => {
-                      const id = e.target.key={number}
+            <li key={props.numbers} className="m-3 text-2xl relative text-left pl-10 hover:bg-gray-800 hover:text-white w-full cursor-pointer" onClick={(e) => {
+              
+              const id = e.target.key={number}
+              
+              const user = array.find( ({uid}) => uid === `${id.number}` )
+              if(addedPerson.find(({uid}) => uid === `${id.number}` )){
+                
+              }else{
+              person.push(user)
+              localStorage.setItem("addedPerson", JSON.stringify(person))
+              }
+            
+              RenderPerson()
+              setOpenUserTab(false)
                       
-                      const user = array.find( ({uid}) => uid === `${id.number}` )
-                      if(addedPerson.find(({uid}) => uid === `${id.number}` )){
-                        
-                      }else{
-                      person.push(user)
-                      localStorage.setItem("addedPerson", JSON.stringify(person))
-                    }
-                    
-                      RenderPerson()
-                      setOpenUserTab(false)
-                      
-                    }}>{number}</li>
+            }}>{number}</li>
           );
           return (
             <ul>{listItems}</ul>

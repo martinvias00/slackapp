@@ -15,9 +15,6 @@ import { FiHelpCircle } from "react-icons/fi";
 import { HiPencilAlt } from "react-icons/hi";
 import { AiOutlineSend } from "react-icons/ai";
 import request from "../util/request";
-
-import Messages2 from "../Components/Messages2";
-
 const Home = () => {
   const [searchModalOpen, setSearchModalOpen] = useState(false);
 
@@ -25,12 +22,10 @@ const Home = () => {
   const [didRender, setdidRender] = useState(false);
   const [currentChan, setcurrentChan] = useState(null);
   const [renderMessages, setrenderMessages] = useState(false);
-  const [isChannelSettings, setisChannelSettings] = useState(false);
   const [isAddChannel, setisAddChannel] = useState(false);
 
   const user = JSON.parse(localStorage.getItem("newUser"));
   const [messages, setmessages] = useState([]);
-  const [messagetobesend, setmessagetobesend] = useState("");
   const [channel, setchannel] = useState([]);
   const [isSuccess, setisSuccess] = useState(0);
   const [OnChannel, setOnChannel] = useState(false);
@@ -89,24 +84,6 @@ const Home = () => {
       });
   };
 
-  const handleSendMessage = (e) => {
-    e.preventDefault();
-    const header = user.headers;
-    const param = {
-      ...header,
-      data: { receiver_id: currentChan.id, body: messagetobesend },
-    };
-
-    request
-      .messageToChannel(param)
-      .then(function (response) {
-        setrenderMessages(true);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-    setmessagetobesend("");
-  };
   const renderChannelMessages = () => {
     if (currentChan) {
       const header = user.headers;
