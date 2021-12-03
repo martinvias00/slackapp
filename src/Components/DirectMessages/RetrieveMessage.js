@@ -36,15 +36,15 @@ function RetrieveMessages(){
 
 }
 
-if(retrievedMessage ){
-    var retrieveinterval = setInterval(() => {
-        RetrieveMessages()
-    }, 8000);
+// if(retrievedMessage ){
+//     var retrieveinterval = setInterval(() => {
+//         RetrieveMessages()
+//     }, 8000);
 
-    Window.intevalValue = retrieveinterval
-}
+//     Window.intevalValue = retrieveinterval
+// }
 
-if(window.onload){clearInterval( retrieveinterval )}
+// if(window.onload){clearInterval( retrieveinterval )}
 
 
 export default RetrieveMessages;
