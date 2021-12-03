@@ -143,12 +143,12 @@ const Register = () => {
               </div>
               <hr />
               <div className="mt-8 flex">
-                <a
+                <button
                   className="font-bold text-sm text-gray-700 hover:text-gray-800 cursor-pointer"
                   onClick={() => history("/", { replace: true })}
                 >
                   Sign in instead
-                </a>
+                </button>
               </div>
             </form>
           </div>

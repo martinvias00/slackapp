@@ -8,10 +8,9 @@ import { useNavigate } from "react-router-dom";
 
 const ChannelSettings = ({ users, currentChan, user, setChannelSettings }) => {
   const nav = useNavigate();
-  const [channelMembers, setchannelMembers] = useState(null);
   const [useremail, setuseremail] = useState(null);
   const { name, id } = currentChan;
-  const [isAddMember, setisAddMember] = useState(true);
+  const [isAddMember, setisAddMember] = useState(false);
   const [filtered, setfiltered] = useState(null);
   const [members, setmembers] = useState([]);
   const [SearchItem, setSearchItem] = useState("");
@@ -24,7 +23,7 @@ const ChannelSettings = ({ users, currentChan, user, setChannelSettings }) => {
       const newlist = results.slice(0, 10);
       setfiltered(newlist);
     }
-  }, [SearchItem]);
+  }, [SearchItem, users]);
   useEffect(() => {
     renderChannelDetails();
   }, []);
@@ -37,13 +36,14 @@ const ChannelSettings = ({ users, currentChan, user, setChannelSettings }) => {
 
   const requestMemberUid = (members) => {
     const userIds = members.map((item) => item.user_id);
-    const userEmail = userIds.map((id) => {
-      return users.filter((user) => {
-        if (user.id === id) {
-          return user.email;
-        }
-      })[0];
-    });
+    const userEmail = userIds.map(
+      (id) =>
+        users.filter((user) => {
+          if (user.id === id) {
+            return user.email;
+          }
+        })[0]
+    );
     console.log(...userEmail);
     setuseremail(userEmail);
   };
@@ -55,7 +55,6 @@ const ChannelSettings = ({ users, currentChan, user, setChannelSettings }) => {
     request.channelDetails(params).then((res) => {
       console.log(res);
       requestMemberUid(res.data.data.channel_members);
-      setchannelMembers(res.data.data.channel_members);
     });
   };
 
@@ -76,7 +75,6 @@ const ChannelSettings = ({ users, currentChan, user, setChannelSettings }) => {
           console.log(error);
         });
     });
-    console.log(members);
   };
   return (
     <div class=" w-full max-w-lg px-4 h-full md:h-auto">
@@ -102,6 +100,15 @@ const ChannelSettings = ({ users, currentChan, user, setChannelSettings }) => {
         </div>
         {isAddMember ? (
           <div className="flex flex-col  m-2">
+            <button
+              className="flex justify-start"
+              onClick={() => {
+                setisAddMember(false);
+              }}
+            >
+              back
+            </button>
+
             <SearchUser
               name="members"
               type="text"
@@ -131,6 +138,9 @@ const ChannelSettings = ({ users, currentChan, user, setChannelSettings }) => {
             </p>
             <div className="flex">
               <GrAdd
+                onClick={() => {
+                  setisAddMember(!isAddMember);
+                }}
                 style={{
                   fontSize: "1.5em",
                   borderRadius: "50%",

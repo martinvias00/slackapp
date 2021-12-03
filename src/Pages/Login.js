@@ -99,9 +99,9 @@ const Login = () => {
                     </label>
                   </div>
                   <div>
-                    <a className="font-bold text-sm text-gray-700 hover:text-gray-800">
+                    <span className="font-bold text-sm text-gray-700 hover:text-gray-800">
                       forgot password
-                    </a>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -117,12 +117,12 @@ const Login = () => {
               <hr />
               <div className="mt-8 flex">
                 <p className="text-sm pr-4">No account</p>
-                <a
+                <span
                   className="font-bold text-sm text-gray-700 hover:text-gray-800 cursor-pointer"
                   onClick={() => nav("/register", { replace: true })}
                 >
                   Sign up
-                </a>
+                </span>
               </div>
             </form>
           </div>

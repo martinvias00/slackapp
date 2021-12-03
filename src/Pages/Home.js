@@ -15,33 +15,25 @@ import { FiHelpCircle } from "react-icons/fi";
 import { HiPencilAlt } from "react-icons/hi";
 import { AiOutlineSend } from "react-icons/ai";
 import request from "../util/request";
-import RenderRetrievedMessages from "../Components/DirectMessages/RendeRetrievedMessages";
-
-import { BsFillChatDotsFill } from "react-icons/bs";
-import MessageWrapper from "../Components/MessageWrapper";
-import OptionModal from "../Components/OptionModal";
-import ChannelSettings from "../Components/ChannelSettings";
-
-const Home = ({ setClient }) => {
+const Home = () => {
   const [searchModalOpen, setSearchModalOpen] = useState(false);
 
-  const [newChannel, setnewChannel] = useState(null);
   const [users, setusers] = useState(null);
   const [didRender, setdidRender] = useState(false);
   const [currentChan, setcurrentChan] = useState(null);
   const [renderMessages, setrenderMessages] = useState(false);
-  const [isChannelSettings, setisChannelSettings] = useState(false);
   const [isAddChannel, setisAddChannel] = useState(false);
 
-  const [messages, setmessages] = useState([]);
   const user = JSON.parse(localStorage.getItem("newUser"));
-  const [messagetobesend, setmessagetobesend] = useState("");
-  const [channelName, setchannelName] = useState("");
-  const [listOfMember, setlistOfMember] = useState("");
+  const [messages, setmessages] = useState([]);
   const [channel, setchannel] = useState([]);
   const [isSuccess, setisSuccess] = useState(0);
+<<<<<<< HEAD
+  const [OnChannel, setOnChannel] = useState(false);
+=======
   const [isInChannel, setisInChannel] = useState(false);
   const [toggleOption, settoggleOption] = useState(false)
+>>>>>>> d82d669f99dad2f3c9d05dd5dc6857d4c8c8d7fb
 
   useEffect(() => {
     renderChannelMessages();
@@ -49,7 +41,11 @@ const Home = ({ setClient }) => {
       setrenderMessages(false);
     };
   }, [renderMessages]);
-
+  useEffect(() => {
+    setInterval(() => {
+      setrenderMessages(true);
+    }, 5000);
+  }, []);
   useEffect(() => {
     renderChannels();
     return () => {
@@ -57,9 +53,6 @@ const Home = ({ setClient }) => {
     };
   }, [didRender]);
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
   useEffect(() => {
     fetchUsers();
   }, [isAddChannel]);
@@ -95,28 +88,7 @@ const Home = ({ setClient }) => {
         console.log(error.response);
       });
   };
-  const handleAddChannel = (e) => {
-    e.preventDefault();
-    setisAddChannel(true);
-  };
-  const handleSendMessage = (e) => {
-    e.preventDefault();
-    const header = user.headers;
-    const param = {
-      ...header,
-      data: { receiver_id: currentChan.id, body: messagetobesend },
-    };
 
-    request
-      .messageToChannel(param)
-      .then(function (response) {
-        setrenderMessages(true);
-      })
-      .catch(function (error) {
-        console.error(error);
-      });
-    setmessagetobesend("");
-  };
   const renderChannelMessages = () => {
     if (currentChan) {
       const header = user.headers;
@@ -157,13 +129,13 @@ const Home = ({ setClient }) => {
         {isAddChannel && (
           <AddChannel
             users={users}
-            setnewChannel={setnewChannel}
             user={user}
             setdidRender={setdidRender}
             isAddChannel={isAddChannel}
+            setOnChannel={setOnChannel}
           />
         )}
-        <details className="flex justify-start text-left pl-2">
+        <details className="flex justify-center text-left pl-2">
           <summary>Channels</summary>
           <p>
             {isSuccess === 200
@@ -174,85 +146,37 @@ const Home = ({ setClient }) => {
                     setcurrentChan={setcurrentChan}
                     currentChan={currentChan}
                     setrenderMessages={setrenderMessages}
-                    setisInChannel={setisInChannel}
                   />
                 ))
               : renderChannels()}
           </p>
         </details>
-        <DirectMessages setisInChannel={setisInChannel} />
+        <DirectMessages />
       </aside>
-      {isChannelSettings ? (
-        <div className=" w-full flex justify-center items-center">
-          <ChannelSettings
-            setChannelSettings={setisChannelSettings}
-            users={users}
-            user={user}
-            currentChan={currentChan}
-          />
-        </div>
-      ) : isInChannel ? (
-        <div>
-          <div className="BodyHeader flex w-full">
-            <h1 className="w-full flex items-center justify-center font-semibold text-2xl">
-              {currentChan && currentChan.name}
-            </h1>
-            <OptionModal
-              setChannelSettings={setisChannelSettings}
-              isChannelSettings={isChannelSettings}
-              toggleOption={toggleOption}
-               settoggleOption={settoggleOption}
-            />
-          </div>
 
-          <div className=" flex flex-col place-items-center h-3/4 overflow-y-scroll bottom-0">
-            {messages.length !== 0 ? (
-              messages.map((message) => (
-                <MessageWrapper message={message} user={user} />
-              ))
-            ) : (
-              <article className="flex items-center flex-col m-10">
-                <BsFillChatDotsFill
-                  style={{ color: "gray", fontSize: "8em" }}
-                />
-
-                <h1>Welcome to thisChat</h1>
-                <p>
-                  See<a> what's new</a> in this update
-                </p>
-              </article>
-            )}
-          </div>
-          <form
-            onSubmit={handleSendMessage}
-            className="flex m-4 justify-center align-middle"
-          >
-            <input
-              class="block shadow border-2 rounded w-2/3 py-2 px-4 text-black-700 mb-3 mr-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-700 transition duration-500 ease-in-out"
-              placeholder="Enter message here"
-              onChange={({ target: { value } }) => {
-                setmessagetobesend(value);
-              }}
-              value={messagetobesend}
-              type="text"
-            />
-            <button type="submit m-4">
-              <AiOutlineSend style={{ fontSize: "2em" }} />
-            </button>
-          </form>
-        </div>
-      ) : (
-        <span id="messages">
-          <Routes>
-            <Route path="/" element={<Messages />} />
-          </Routes>
-        </span>
-      )}
-      {/* {/* <span id="messages">
+      <span
+        id="messages"
+        onClick={() => {
+          setOnChannel(!OnChannel);
+        }}
+      >
         <Routes>
-          <Route path="/" element={<Messages />} />
+          <Route
+            path="/"
+            element={
+              <Messages
+                setcurrentChan={setcurrentChan}
+                currentChan={currentChan}
+                setrenderMessages={setrenderMessages}
+                messages={messages}
+                users={users}
+                OnChannel={OnChannel}
+              />
+            }
+          />
         </Routes>
-      </span> */}
+      </span>
+
       {searchModalOpen && <Search setOpenSearchModal={setSearchModalOpen} />}
     </div>
   );
