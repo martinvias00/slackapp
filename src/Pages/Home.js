@@ -28,12 +28,11 @@ const Home = () => {
   const [messages, setmessages] = useState([]);
   const [channel, setchannel] = useState([]);
   const [isSuccess, setisSuccess] = useState(0);
-<<<<<<< HEAD
   const [OnChannel, setOnChannel] = useState(false);
-=======
   const [isInChannel, setisInChannel] = useState(false);
   const [toggleOption, settoggleOption] = useState(false)
->>>>>>> d82d669f99dad2f3c9d05dd5dc6857d4c8c8d7fb
+
+  Window.setOnChannel = setOnChannel
 
   useEffect(() => {
     renderChannelMessages();

@@ -49,7 +49,7 @@ function RenderRetrievedMessages(){
 
     var newInterval = setInterval(() => {
         RenderRetrievedMessages()
-    }, 8000);
+    }, 10000);
     
     Window.timeValue = newInterval
     
