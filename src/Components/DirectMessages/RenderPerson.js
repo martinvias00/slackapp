@@ -1,69 +1,62 @@
-import ReactDOM from "react-dom"
-import Messages from "../Messages"
-import RetrieveMessages from "./RetrieveMessage"
-import RenderRetrievedMessages from "./RendeRetrievedMessages"
-import {IoPersonCircleOutline} from "react-icons/io5"
+import ReactDOM from "react-dom";
+import Messages from "../Messages";
+import RetrieveMessages from "./RetrieveMessage";
+import RenderRetrievedMessages from "./RendeRetrievedMessages";
+import { IoPersonCircleOutline } from "react-icons/io5";
 
+const RenderPerson = () => {
+  const renderName = () => {
+    const uid = JSON.parse(localStorage.getItem("uid"));
+    ReactDOM.render(<div>{uid}</div>, document.querySelector(".channelName"));
+  };
+  const persons = JSON.parse(localStorage.getItem("addedPerson"));
 
-
-const RenderPerson=()=>{
-    const renderName=()=>{
-        const uid = JSON.parse(localStorage.getItem("uid"))
-        ReactDOM.render(<div>{uid}</div>, document.querySelector(".channelName"))
-    }
-    const persons = JSON.parse(localStorage.getItem("addedPerson"))
-
-    if(!persons){}else{
+  if (!persons) {
+  } else {
     function Blog(props) {
-        const sidebar = (
-          <ul>
-            {props.posts.map((post) =>
-            
-              <li key={post.id} className="m-1" onClick={(e) => {
-                const id = e.target.key={post};
-                Window.uid = id.post.uid
-                Window.id = id.post.id
-  
-                Messages()
-                renderName()
-                RetrieveMessages()
+      const sidebar = (
+        <ul>
+          {props.posts.map((post) => (
+            <li
+              key={post.id}
+              className="m-1"
+              onClick={(e) => {
+                const id = (e.target.key = { post });
+                Window.uid = id.post.uid;
+                Window.id = id.post.id;
+
+                Messages();
+                renderName();
+                RetrieveMessages();
 
                 setTimeout(() => {
-                  RenderRetrievedMessages()
+                  RenderRetrievedMessages();
                 }, 100);
-              }}>
-                <div id="userIdDiv">
-                  <IoPersonCircleOutline id="personCircleOutline"/> 
-                  { post.uid}
-                </div>
-                <div>
-                  {}
-                </div>
-              </li>
-            )}
-          </ul>
-        );
-        
-        return (
-          <div>
-            {sidebar}
-          </div>
-        );
-      }
-      
-      const posts = persons
-      
-      ReactDOM.render(
-        <Blog posts={posts} />,
-        document.getElementById('userTab')
+              }}
+            >
+              <div id="userIdDiv">
+                <IoPersonCircleOutline id="personCircleOutline" />
+                {post.uid}
+              </div>
+              <div>{}</div>
+            </li>
+          ))}
+        </ul>
       );
+
+      return <div>{sidebar}</div>;
     }
-}
+
+    const posts = persons;
+
+    ReactDOM.render(<Blog posts={posts} />, document.getElementById("userTab"));
+  }
+};
 
 export default RenderPerson;
 
 const listStyle = {
-    listStyleType: "none",
-    margin: "3px",
-    fontSize: ".8vw"
-}
+  listStyleType: "none",
+  margin: "3px",
+  fontSize: ".8vw",
+};

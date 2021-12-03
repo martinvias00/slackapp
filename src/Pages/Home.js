@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-
+import { Route, Routes } from "react-router-dom";
 import "../App.css";
 
 import Messages from "../Components/Messages";
@@ -190,9 +190,9 @@ const Home = ({ setClient }) => {
             currentChan={currentChan}
           />
         </div>
-      ) : (
-        <div className="Body ">
-          <div className="BodyHeader flex w-ful">
+      ) : isInChannel ? (
+        <div>
+          <div className="BodyHeader flex w-full">
             <h1 className="w-full flex items-center justify-center font-semibold text-2xl">
               {currentChan && currentChan.name}
             </h1>
@@ -235,14 +235,15 @@ const Home = ({ setClient }) => {
             </button>
           </form>
         </div>
+      ) : (
+        <span id="messages">
+          <Routes>
+            <Route path="/" element={<Messages />} />
+          </Routes>
+        </span>
       )}
-      {/* {/* <span id="messages">
-        <Routes>
-          <Route path="/" element={<Messages />} />
-        </Routes>
-      </span> */}
-      {/* {searchModalOpen && <Search setOpenSearchModal={setSearchModalOpen} />}
-       */}
+
+      {searchModalOpen && <Search setOpenSearchModal={setSearchModalOpen} />}
     </div>
   );
 };
