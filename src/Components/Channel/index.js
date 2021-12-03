@@ -1,28 +1,29 @@
 import React from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import "./index.css";
 const Channel = (props) => {
-  const { name, channelid } = props;
-  const profilePic =
-    "https://www.licany.org/wp-content/uploads/2018/10/male.jpg";
+  const { name, channelid, setisInChannel, setrenderMessages, setcurrentChan } =
+    props;
+
   return (
     <Link
       to={`/home/${channelid}`}
       key={channelid}
       style={{ textDecoration: "none" }}
     >
-      <div className="ChatRoomItem">
-        {/* <img src={profilePic} alt="profile" style={profilePicStyle} /> */}
-        {/* <span style={countStyle}>5</span> */}
+      <div
+        className="ChatRoomItem"
+        onClick={(e) => {
+          e.isDefaultPrevented();
+          setisInChannel(true);
+          setcurrentChan({ name: name, id: channelid });
+          setrenderMessages(true);
+        }}
+      >
         <div style={sideContainer}>
           <div style={nameWrapperStyle}>
             <span style={nameStyle}>{name}</span>
-            <span style={textStyle}>9:22</span>
           </div>
-          {/* 
-          <span style={textStyle}>
-            Lorem ipsum dolor sit amet, consectetur l...
-          </span> */}
         </div>
       </div>
     </Link>
@@ -31,15 +32,6 @@ const Channel = (props) => {
 
 export default Channel;
 
-const container = {
-  display: "flex",
-  width: "380px",
-  height: "70px",
-  justifyContent: "center",
-  alignItems: "center",
-  margin: "10px",
-  borderRadius: "10px",
-};
 const sideContainer = {
   display: "flex",
   flexDirection: "column",
@@ -50,27 +42,6 @@ const sideContainer = {
   paddingLeft: "5px",
 };
 
-const profilePicStyle = {
-  paddingLeft: "3px",
-  width: "50px",
-  height: "50px",
-  borderRadius: "50%",
-};
-const countStyle = {
-  width: "20px",
-  height: "20px",
-  backgroundColor: "#3777f0",
-  color: "white",
-  fontSize: 12,
-  borderRadius: "50%",
-  position: "absolute",
-  display: "flex",
-  justifyContent: "center",
-  alignItems: "center",
-  border: "1px white solid",
-  left: 45,
-  marginBottom: "30px",
-};
 const nameWrapperStyle = {
   width: "100%",
   display: "flex",
@@ -80,7 +51,4 @@ const nameStyle = {
   flex: 1,
   fontWeight: "bold",
   textAlign: "left",
-};
-const textStyle = {
-  color: "gray",
 };

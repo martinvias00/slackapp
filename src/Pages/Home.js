@@ -1,6 +1,6 @@
 import * as React from "react";
-import { useState } from "react";
-import { Routes, Route, Link, useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+
 import "../App.css";
 
 import Messages from "../Components/Messages";
@@ -13,16 +13,25 @@ import { FaSearch } from "react-icons/fa";
 import { AiOutlineHistory } from "react-icons/ai";
 import { FiHelpCircle } from "react-icons/fi";
 import { HiPencilAlt } from "react-icons/hi";
+import { AiOutlineSend } from "react-icons/ai";
 import request from "../util/request";
 import RenderRetrievedMessages from "../Components/DirectMessages/RendeRetrievedMessages";
 
+import { BsFillChatDotsFill } from "react-icons/bs";
+import MessageWrapper from "../Components/MessageWrapper";
+import OptionModal from "../Components/OptionModal";
+import ChannelSettings from "../Components/ChannelSettings";
+
 const Home = ({ setClient }) => {
-  const navigate = useNavigate();
   const [searchModalOpen, setSearchModalOpen] = useState(false);
-  const handleLogout = () => {
-    request.rmLocalClient();
-    navigate("/", { replace: true });
-  };
+
+  const [newChannel, setnewChannel] = useState(null);
+  const [users, setusers] = useState(null);
+  const [didRender, setdidRender] = useState(false);
+  const [currentChan, setcurrentChan] = useState(null);
+  const [renderMessages, setrenderMessages] = useState(false);
+  const [isChannelSettings, setisChannelSettings] = useState(false);
+  const [isAddChannel, setisAddChannel] = useState(false);
 
   const [messages, setmessages] = useState([]);
   const user = JSON.parse(localStorage.getItem("newUser"));
@@ -31,38 +40,93 @@ const Home = ({ setClient }) => {
   const [listOfMember, setlistOfMember] = useState("");
   const [channel, setchannel] = useState([]);
   const [isSuccess, setisSuccess] = useState(0);
-  
-  const setInterval = Window.timeValue
-  const retrieveinterval = Window.intevalValue
+  const [isInChannel, setisInChannel] = useState(false);
 
+  useEffect(() => {
+    renderChannelMessages();
+    return () => {
+      setrenderMessages(false);
+    };
+  }, [renderMessages]);
+
+  useEffect(() => {
+    renderChannels();
+    return () => {
+      setdidRender(false);
+    };
+  }, [didRender]);
+
+  useEffect(() => {
+    fetchUsers();
+  }, []);
+  useEffect(() => {
+    fetchUsers();
+  }, [isAddChannel]);
+
+  const fetchUsers = () => {
+    const options = user.headers;
+    request.alluserData(options).then((response) => {
+      const newdata = Object.values(response.data.data).map((data) => data);
+      const userlist = newdata.map((data) => {
+        const newobjt = { id: data.id, email: data.uid };
+        return newobjt;
+      });
+      setusers(userlist);
+      localStorage.setItem("users", JSON.stringify(newdata));
+    });
+  };
 
   const handleResponse = (data) => {
     const shows = data.map((item) => ({ id: item.id, name: item.name }));
-    console.log(data);
     setchannel(shows);
   };
   const renderChannels = () => {
-    const params = {
-      path: "/api/v1/channels",
-      header: {
-        "Content-Type": "application/json",
-        "access-token": user.token,
-        client: user.client,
-        expiry: user.expiry,
-        uid: user.uid,
-      },
-    };
+    const options = user.headers;
 
     request
-      .channels(params)
+      .channels(options)
       .then((response) => {
-        console.log(response.status);
         setisSuccess(response.status);
+
         handleResponse(response.data.data);
       })
       .catch((error) => {
         console.log(error.response);
       });
+  };
+  const handleAddChannel = (e) => {
+    e.preventDefault();
+    setisAddChannel(true);
+  };
+  const handleSendMessage = (e) => {
+    e.preventDefault();
+    const header = user.headers;
+    const param = {
+      ...header,
+      data: { receiver_id: currentChan.id, body: messagetobesend },
+    };
+
+    request
+      .messageToChannel(param)
+      .then(function (response) {
+        setrenderMessages(true);
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+    setmessagetobesend("");
+  };
+  const renderChannelMessages = () => {
+    if (currentChan) {
+      const header = user.headers;
+      const param = {
+        ...header,
+        channelId: currentChan.id,
+      };
+      request
+        .retriveCMessages(param)
+        .then((response) => setmessages(response.data.data));
+    }
   };
 
   return (
@@ -82,40 +146,103 @@ const Home = ({ setClient }) => {
       <aside className="aside">
         <span className="workspaceWrapper">
           <span className="workspaceName">Workspace</span>
-          <HiPencilAlt className="pencilIcon" />
+          <HiPencilAlt
+            className="pencilIcon"
+            onClick={() => {
+              setisAddChannel(!isAddChannel);
+            }}
+          />
         </span>
+        {isAddChannel && (
+          <AddChannel
+            users={users}
+            setnewChannel={setnewChannel}
+            user={user}
+            setdidRender={setdidRender}
+            isAddChannel={isAddChannel}
+          />
+        )}
         <details className="flex justify-start text-left pl-2">
           <summary>Channels</summary>
           <p>
             {isSuccess === 200
               ? channel.map((chan) => (
-                  <Channel name={chan.name} channelid={chan.id} />
+                  <Channel
+                    name={chan.name}
+                    channelid={chan.id}
+                    setcurrentChan={setcurrentChan}
+                    currentChan={currentChan}
+                    setrenderMessages={setrenderMessages}
+                    setisInChannel={setisInChannel}
+                  />
                 ))
               : renderChannels()}
           </p>
         </details>
-        <AddChannel />
-        <DirectMessages/>
+        <DirectMessages setisInChannel={setisInChannel} />
       </aside>
-      <span id="messages">
+      {isChannelSettings ? (
+        <div className=" w-full flex justify-center items-center">
+          <ChannelSettings
+            setChannelSettings={setisChannelSettings}
+            users={users}
+            user={user}
+            currentChan={currentChan}
+          />
+        </div>
+      ) : (
+        <div className="Body ">
+          <div className="BodyHeader flex w-ful">
+            <h1 className="w-full flex items-center justify-center font-semibold text-2xl">
+              {currentChan && currentChan.name}
+            </h1>
+            <OptionModal setChannelSettings={setisChannelSettings} />
+          </div>
+
+          <div className=" flex flex-col place-items-center h-3/4 overflow-y-scroll bottom-0">
+            {messages.length !== 0 ? (
+              messages.map((message) => (
+                <MessageWrapper message={message} user={user} />
+              ))
+            ) : (
+              <article className="flex items-center flex-col m-10">
+                <BsFillChatDotsFill
+                  style={{ color: "gray", fontSize: "8em" }}
+                />
+
+                <h1>Welcome to thisChat</h1>
+                <p>
+                  See<a> what's new</a> in this update
+                </p>
+              </article>
+            )}
+          </div>
+          <form
+            onSubmit={handleSendMessage}
+            className="flex m-4 justify-center align-middle"
+          >
+            <input
+              class="block shadow border-2 rounded w-2/3 py-2 px-4 text-black-700 mb-3 mr-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-700 transition duration-500 ease-in-out"
+              placeholder="Enter message here"
+              onChange={({ target: { value } }) => {
+                setmessagetobesend(value);
+              }}
+              value={messagetobesend}
+              type="text"
+            />
+            <button type="submit m-4">
+              <AiOutlineSend style={{ fontSize: "2em" }} />
+            </button>
+          </form>
+        </div>
+      )}
+      {/* {/* <span id="messages">
         <Routes>
           <Route path="/" element={<Messages />} />
         </Routes>
-      </span>
-      {searchModalOpen && <Search setOpenSearchModal={setSearchModalOpen} />}
-      
-      {/* render user channels */}
-
-      <button id="logoutButton"
-        onClick={(e) => {
-          e.preventDefault();
-          handleLogout();
-          clearInterval(setInterval);
-          clearInterval(retrieveinterval)
-        }}
-      >
-        logout
-      </button>
+      </span> */}
+      {/* {searchModalOpen && <Search setOpenSearchModal={setSearchModalOpen} />}
+       */}
     </div>
   );
 };

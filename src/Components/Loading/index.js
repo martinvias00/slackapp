@@ -1,12 +1,9 @@
 import "./Loading.css";
-import { DiReact } from "react-icons/di";
 const Loading = () => {
   return (
     <div v-show="show" className="overlay">
       <div className="dialog">
-        <DiReact
-          style={{ color: "#2d3038", fontSize: "8em", fontWeight: "bold" }}
-        />
+        <div class="w-16 h-16 border-b-2 border-gray-900 rounded-full animate-spin"></div>
       </div>
     </div>
   );

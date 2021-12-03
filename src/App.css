@@ -19,17 +19,18 @@
   grid-area: app-header;
 }
 
-.aside{
+.aside {
   background-color: #2d3038;
   height: 96.1vh;
+  width: 20vw;
   grid-area: aside;
 }
 
-#messages{
+#messages {
   grid-area: messages;
 }
 
-.search{
+.search {
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
@@ -45,11 +46,11 @@
   grid-area: searchbar;
 }
 
-#FaSearch{
+#FaSearch {
   height: 12.5px;
 }
 
-.top_nav__Leftsidebar{
+.top_nav__Leftsidebar {
   padding-right: 20px;
   min-width: 28px;
   height: 22px;
@@ -57,7 +58,7 @@
   grid-area: leftSideBar;
 }
 
-.top_nav__Rightsidebar{
+.top_nav__Rightsidebar {
   justify-self: start;
   padding-left: 16px;
   padding-right: 20px;
@@ -66,27 +67,28 @@
   grid-area: rightSideBar;
 }
 
-.workspaceWrapper{
+.workspaceWrapper {
   min-height: 5vh;
   color: white;
   display: grid;
+  width: 20vw;
   grid-template-columns: 11vw 2vw;
   align-items: center;
-  border-top: .5px solid #484950;
-  border-bottom: .5px solid #484950;
+  border-top: 0.5px solid #484950;
+  border-bottom: 0.5px solid #484950;
 }
 
-.pencilIcon{
+.pencilIcon {
   font-size: 3vh;
 }
 
-.workspaceName{
+.workspaceName {
   text-align: left;
   padding-left: 20px;
   font-size: 2.2vh;
 }
 
-#logoutButton{
+#logoutButton {
   position: absolute;
   width: 13.6%;
   bottom: 0%;
