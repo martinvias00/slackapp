@@ -44,16 +44,16 @@ function RenderRetrievedMessages(){
 
     ReactDOM.render(<div>{uid}</div>, document.querySelector(".channelName"))
   }
-  if(retrievedMessage && uid){
+//   if(retrievedMessage && uid){
 
-    var newInterval = setInterval(() => {
-        RenderRetrievedMessages()
-    }, 10000);
+//     var newInterval = setInterval(() => {
+//         RenderRetrievedMessages()
+//     }, 10000);
     
-    Window.timeValue = newInterval
+//     Window.timeValue = newInterval
     
-}
-if(window.onload){clearInterval( newInterval )}
+// }
+// if(window.onload){clearInterval( newInterval )}
 
 }
 
