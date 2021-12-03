@@ -4,14 +4,7 @@ import SearchUser from "../SearchUser";
 import request from "../../util/request";
 import ErrorMessage from "../Alerts/ErrorMessage";
 import { BsPeopleFill, BsFillCameraFill } from "react-icons/bs";
-import { GrLinkNext, GrLinkPrevious } from "react-icons/gr";
-const AddChannel = ({
-  setnewChannel,
-  users,
-  user,
-  setdidRender,
-  isAddChannel,
-}) => {
+const AddChannel = ({ users, user, setdidRender, isAddChannel }) => {
   const [onNext, setonNext] = useState(false);
   const [filtered, setfiltered] = useState(null);
   const [members, setmembers] = useState([]);
@@ -67,7 +60,6 @@ const AddChannel = ({
             setonNext(false);
             setmembers([]);
             setdidRender(true);
-            setnewChannel(res.data);
           }
         })
         .catch((error) => console.log(error.response));

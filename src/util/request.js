@@ -12,7 +12,6 @@ export default class request {
         url: URL,
         headers: header,
       };
-      console.log(header);
     } else {
       options = {
         method: action,

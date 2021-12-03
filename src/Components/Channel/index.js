@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./index.css";
 const Channel = (props) => {
-  const { name, channelid, setisInChannel, setrenderMessages, setcurrentChan } =
+  const { name, channelid, setOnChannel, setrenderMessages, setcurrentChan } =
     props;
 
   return (
@@ -15,7 +15,7 @@ const Channel = (props) => {
         className="ChatRoomItem"
         onClick={(e) => {
           e.isDefaultPrevented();
-          setisInChannel(true);
+          setOnChannel(true);
           setcurrentChan({ name: name, id: channelid });
           setrenderMessages(true);
         }}

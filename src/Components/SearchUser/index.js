@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 const SearchUser = ({ setstate, value, filtered, members, setmembers }) => {
   const handleAddMember = (e) => {
     e.preventDefault();
