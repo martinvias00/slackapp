@@ -44,7 +44,7 @@ if(retrievedMessage ){
     Window.intevalValue = retrieveinterval
 }
 
+if(window.onload){clearInterval( retrieveinterval )}
 
-// window.onload = clearInterval( retrieveinterval )
 
 export default RetrieveMessages;
