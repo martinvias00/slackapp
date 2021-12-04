@@ -5,7 +5,6 @@ import RenderRetrievedMessages from "./DirectMessages/RendeRetrievedMessages";
 import { AiOutlineSend } from "react-icons/ai";
 import Messages2 from "./Messages2";
 function Messages(props) {
-
   return (
     <main>
       <div className="details">
