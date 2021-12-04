@@ -3,6 +3,7 @@ import Messages3 from "../Messages3";
 import RetrieveMessages from "./RetrieveMessage";
 import RenderRetrievedMessages from "./RendeRetrievedMessages";
 import { IoPersonCircleOutline } from "react-icons/io5";
+import DirectMessages from "./DirectMessages";
 
 
 const RenderPerson = () => {
@@ -28,11 +29,11 @@ const RenderPerson = () => {
                 
                 Window.uid = id.post.uid;
                 Window.id = id.post.id;
+                console.log("id", id)
 
-                setChannel(false)
+                // setChannel(false)
                 if(openUserTab){openUserTab(false)}
                 
-                Messages3()
                 renderName();
                 RetrieveMessages();
 
