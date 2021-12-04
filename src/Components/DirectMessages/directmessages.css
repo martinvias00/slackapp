@@ -1,7 +1,6 @@
 .details{
     position: relative;
-    top: 4%;
-    left: 7.4%;
+    top: 2px;
     width: 80vw;
     height: 5vh;
     display: flex;
@@ -12,10 +11,9 @@
 
 .conversationArea{
     position: relative;
-    top: 9.5%;
-    left: 7.4%;
+    left: 2%;
     width: 80vw;
-    height: 80vh;
+    height: 75.5vh;
 }
 
 .channelName{
@@ -105,7 +103,7 @@ input{
 
 #messageFormat{
     display: grid;
-    grid-template-columns:5% 12% 80%;
+    grid-template-columns:5% 13% 82%;
     grid-template-rows: 35px 10%;
     grid-template-areas: "personIcon sender timeSent" "personIcon messageBody messageBody";
     text-align: left;
@@ -132,7 +130,9 @@ font-weight: 600;
 #messageBody{
     grid-area: messageBody;
     font-size: 16px;
+    padding: 10px;
     text-align: justify;
+    
     color: rgb(54, 52, 52);
 }
 
