@@ -9,6 +9,7 @@ import OptionModal from "../Components/OptionModal";
 import ChannelSettings from "../Components/ChannelSettings";
 import { AiOutlineSend } from "react-icons/ai";
 const Messages2 = ({ currentChan, setrenderMessages, messages, users }) => {
+  const [toggleOption, settoggleOption] = useState(false);
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -56,7 +57,11 @@ const Messages2 = ({ currentChan, setrenderMessages, messages, users }) => {
           <h1 className="w-full flex items-center justify-center font-semibold text-2xl">
             {currentChan && currentChan.name}
           </h1>
-          <OptionModal setChannelSettings={setisChannelSettings} />
+          <OptionModal
+            setChannelSettings={setisChannelSettings}
+            toggleOption={toggleOption}
+            settoggleOption={settoggleOption}
+          />
         </div>
 
         <div className=" flex flex-col place-items-center h-4/5 w-11/12 overflow-y-scroll top-0 m-4">

@@ -2,11 +2,10 @@ import * as React from "react";
 import { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import "../App.css";
-
 import Messages from "../Components/Messages";
 import Search from "../Components/Search";
 import DirectMessages from "../Components/DirectMessages/DirectMessages";
-
+import Messages2 from "../Components/Messages2";
 import Channel from "../Components/Channel";
 import AddChannel from "../Components/Channel/AddChannel";
 import { FaSearch } from "react-icons/fa";
@@ -15,6 +14,7 @@ import { FiHelpCircle } from "react-icons/fi";
 import { HiPencilAlt } from "react-icons/hi";
 import { AiOutlineSend } from "react-icons/ai";
 import request from "../util/request";
+import { useNavigate } from "react-router-dom";
 const Home = () => {
   const [searchModalOpen, setSearchModalOpen] = useState(false);
 
@@ -29,10 +29,17 @@ const Home = () => {
   const [channel, setchannel] = useState([]);
   const [isSuccess, setisSuccess] = useState(0);
   const [OnChannel, setOnChannel] = useState(false);
-  const [isInChannel, setisInChannel] = useState(false);
-  const [toggleOption, settoggleOption] = useState(false)
+  const [state, setstate] = useState(false);
+  const nav = useNavigate();
 
-  Window.setOnChannel = setOnChannel
+  useEffect(() => {
+    const retrieveinterval = Window.intevalValue;
+    if (retrieveinterval) {
+      setstate(!state);
+    } else {
+      console.log("nothing to print here");
+    }
+  }, [OnChannel]);
 
   useEffect(() => {
     renderChannelMessages();
@@ -134,49 +141,55 @@ const Home = () => {
             setOnChannel={setOnChannel}
           />
         )}
-        <details className="flex justify-center text-left pl-2">
-          <summary>Channels</summary>
-          <p>
-            {isSuccess === 200
-              ? channel.map((chan) => (
-                  <Channel
-                    name={chan.name}
-                    channelid={chan.id}
-                    setcurrentChan={setcurrentChan}
-                    currentChan={currentChan}
-                    setrenderMessages={setrenderMessages}
-                  />
-                ))
-              : renderChannels()}
-          </p>
+        <div
+          onClick={() => {
+            setstate(true);
+          }}
+        >
+          <details className="flex justify-center text-left pl-2 text-white cursor-pointer ml-3">
+            <summary className="">Channels</summary>
+            <p>
+              {isSuccess === 200
+                ? channel.map((chan) => (
+                    <Channel
+                      name={chan.name}
+                      channelid={chan.id}
+                      setcurrentChan={setcurrentChan}
+                      currentChan={currentChan}
+                      setrenderMessages={setrenderMessages}
+                      setOnChannel={setOnChannel}
+                      OnChannel={OnChannel}
+                    />
+                  ))
+                : renderChannels()}
+            </p>
+          </details>
+        </div>
+        <div
+          className="bg-red-400"
+          onclick={() => {
+            setstate(!state);
+          }}
+        ></div>
+        <details
+          onClick={() => {
+            nav("/home/directmessages", { replace: true });
+          }}
+          className="flex justify-center text-left pl-2 text-white cursor-pointer ml-3"
+        >
+          <summary className="">Direct message</summary>
+          <p></p>
         </details>
-        <DirectMessages />
+        <button></button>
       </aside>
 
-      <span
-        id="messages"
-        onClick={() => {
-          setOnChannel(!OnChannel);
-        }}
-      >
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <Messages
-                setcurrentChan={setcurrentChan}
-                currentChan={currentChan}
-                setrenderMessages={setrenderMessages}
-                messages={messages}
-                users={users}
-                OnChannel={OnChannel}
-              />
-            }
-          />
-        </Routes>
-      </span>
-
-      {searchModalOpen && <Search setOpenSearchModal={setSearchModalOpen} />}
+      <Messages2
+        setcurrentChan={setcurrentChan}
+        currentChan={currentChan}
+        setrenderMessages={setrenderMessages}
+        messages={messages}
+        users={users}
+      />
     </div>
   );
 };
