@@ -65,10 +65,10 @@
 
 .conversationAreaWrapper{
 position: absolute;
+top: 6.1%;
 overflow: hidden;
 }
 .convoInsideWrapper{
     position: relative;
     overflow: scroll;
-
 }

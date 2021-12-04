@@ -4,7 +4,7 @@ import {IoPersonCircleOutline} from "react-icons/io5"
 function RenderRetrievedMessages(){
 
   const retrievedMessage = JSON.parse(localStorage.getItem("retrievedMessages"))
-   
+
   let uid = Window.uid
 
   if(!retrievedMessage){}else{
@@ -15,9 +15,10 @@ function RenderRetrievedMessages(){
         <ul>
           {props.posts.map((post) =>
 
-            post.data.map((post) =>
+            post.data.map((post ) =>
 
             <li key={post.body} className="m-5" >
+    
               <div id="messageFormat">
                 <IoPersonCircleOutline id="personIcon"/>
                 <div id="messageSender">{post.sender.email}</div>
