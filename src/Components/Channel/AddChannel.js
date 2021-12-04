@@ -78,7 +78,7 @@ const AddChannel = ({ users, user, setdidRender, isAddChannel }) => {
       )}
       {onNext ? (
         <div>
-          <h1 className="m-2 font-medium">Name this channel</h1>
+          <h1 className="m-2 font-medium text-white">Name this channel</h1>
           <div className="bg-white flex justify-center">
             <div className="rounded-full bg-gray-400 w-40 h-40 flex justify-center items-center shadow-md">
               <BsPeopleFill
@@ -89,7 +89,7 @@ const AddChannel = ({ users, user, setdidRender, isAddChannel }) => {
               onClick={() => {
                 setOnChangeAvatar(!OnChangeAvatar);
               }}
-              className="absolute top-40 left-56 rounded-full bg-white h-10 w-10 flex items-center shadow-md"
+              className="absolute top-44 left-48 rounded-full bg-white h-10 w-10 flex items-center shadow-md"
             >
               <BsFillCameraFill
                 style={{ color: "gray", fontSize: "2em", flex: 1 }}
@@ -108,7 +108,12 @@ const AddChannel = ({ users, user, setdidRender, isAddChannel }) => {
               placeholder="Channel name (required)"
               type="text"
             />
-            <button type="submit">Create</button>
+            <button
+              type="submit"
+              className="text-white bg-gray-500 rounded-md cursor-pointer p-1"
+            >
+              Create
+            </button>
           </form>
         </div>
       ) : (

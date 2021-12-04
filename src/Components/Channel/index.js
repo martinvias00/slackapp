@@ -2,9 +2,16 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./index.css";
 const Channel = (props) => {
-  const { name, channelid, setOnChannel, setrenderMessages, setcurrentChan } =
-    props;
-
+  const {
+    name,
+    channelid,
+    setrenderMessages,
+    setcurrentChan,
+    setOnChannel,
+    OnChannel,
+  } = props;
+  const setInterval = Window.timeValue;
+  const retrieveinterval = Window.intevalValue;
   return (
     <Link
       to={`/home/${channelid}`}
@@ -12,17 +19,21 @@ const Channel = (props) => {
       style={{ textDecoration: "none" }}
     >
       <div
-        className="ChatRoomItem"
+        className="ChatRoomItem hover:text-gray-600 hover:bg-gray-500 mr-4 rounded-md"
         onClick={(e) => {
           e.isDefaultPrevented();
-          setOnChannel(true);
+          clearInterval(setInterval);
+          clearInterval(retrieveinterval);
           setcurrentChan({ name: name, id: channelid });
           setrenderMessages(true);
+          setOnChannel(!OnChannel);
         }}
       >
         <div style={sideContainer}>
           <div style={nameWrapperStyle}>
-            <span style={nameStyle}>{name}</span>
+            <span style={nameStyle} className="text-white font-normal">
+              {name}
+            </span>
           </div>
         </div>
       </div>
@@ -49,6 +60,5 @@ const nameWrapperStyle = {
 const nameStyle = {
   paddingLeft: "7px",
   flex: 1,
-  fontWeight: "bold",
   textAlign: "left",
 };

@@ -55,8 +55,3 @@ const RenderPerson = () => {
 
 export default RenderPerson;
 
-const listStyle = {
-  listStyleType: "none",
-  margin: "3px",
-  fontSize: ".8vw",
-};

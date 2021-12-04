@@ -39,7 +39,7 @@ const SearchUser = ({ setstate, value, filtered, members, setmembers }) => {
       onSubmit={handleAddMember}
       className="mb-8 mt-1 relative rounded-md shadow-sm"
     >
-      <h1 className="font-medium">Choose members</h1>
+      <h1 className="font-medium text-white">Choose members</h1>
       <datalist id="userList">
         {filtered &&
           filtered.map((user) => {
