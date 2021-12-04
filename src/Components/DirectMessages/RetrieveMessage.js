@@ -2,7 +2,7 @@ import axios from "axios";
 
 const URL = process.env.REACT_APP_URL;
 const retrievedMessage = JSON.parse(localStorage.getItem("retrievedMessages"))
-let id = Window.id
+var id = Window.id
 
 function RetrieveMessages(){
     const getheaders = JSON.parse(localStorage.getItem("newUser"))
@@ -10,7 +10,8 @@ function RetrieveMessages(){
     id = Window.id
 
     if(getheaders){
-        var {token, client, expiry, uid} = getheaders;
+        var {client, expiry, uid} = getheaders.headers;
+        var token =  getheaders.headers["access-token"]
     }
 
     const options = {
@@ -30,20 +31,20 @@ function RetrieveMessages(){
     localStorage.setItem("retrievedMessages", data)
     }).catch(function (error) {
         console.error(error);
-        clearInterval(retrieveinterval)
+        // clearInterval(retrieveinterval)
     });
 
 }
 
-if(retrievedMessage && id){
-    var retrieveinterval = setInterval(() => {
-        RetrieveMessages()
-    }, 5000);
+// if(retrievedMessage ){
+//     var retrieveinterval = setInterval(() => {
+//         RetrieveMessages()
+//     }, 8000);
 
-    Window.intevalValue = retrieveinterval
-}
+//     Window.intevalValue = retrieveinterval
+// }
 
+// if(window.onload){clearInterval( retrieveinterval )}
 
-// window.onload = clearInterval( retrieveinterval )
 
 export default RetrieveMessages;

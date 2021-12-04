@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./index.css";
 const Channel = (props) => {
+<<<<<<< HEAD
   const {
     name,
     channelid,
@@ -12,6 +13,13 @@ const Channel = (props) => {
   } = props;
   const setInterval = Window.timeValue;
   const retrieveinterval = Window.intevalValue;
+=======
+  const { name, channelid, setOnChannel, setrenderMessages, setcurrentChan } =
+    props;
+  const setInterval = Window.timeValue;
+  const retrieveinterval = Window.intevalValue;
+
+>>>>>>> 75ec2669ebc0e407a93ce12272d5bc650d079ed6
   return (
     <Link
       to={`/home/${channelid}`}
@@ -24,6 +32,10 @@ const Channel = (props) => {
           e.isDefaultPrevented();
           clearInterval(setInterval);
           clearInterval(retrieveinterval);
+<<<<<<< HEAD
+=======
+          setOnChannel(true);
+>>>>>>> 75ec2669ebc0e407a93ce12272d5bc650d079ed6
           setcurrentChan({ name: name, id: channelid });
           setrenderMessages(true);
           setOnChannel(!OnChannel);
