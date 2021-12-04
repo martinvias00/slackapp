@@ -3,8 +3,7 @@ import SendMessages from "./DirectMessages/SendMessages";
 import RetrieveMessages from "./DirectMessages/RetrieveMessage";
 import RenderRetrievedMessages from "./DirectMessages/RendeRetrievedMessages";
 import { AiOutlineSend } from "react-icons/ai";
-import Messages2 from "./Messages2";
-function Messages(props) {
+function Messages() {
   return (
     <main>
       <div className="details">

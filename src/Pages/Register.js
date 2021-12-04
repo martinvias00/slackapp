@@ -39,6 +39,7 @@ const Register = () => {
         .then(function (response) {
           setloading(false);
           setcomplete(true);
+          history("/", { replace: true });
         })
         .catch(function (error) {
           setloading(false);
@@ -51,7 +52,6 @@ const Register = () => {
 
       setTimeout(() => {
         setcomplete(false);
-        history("/", { replace: true });
       }, 1000);
     }
   }

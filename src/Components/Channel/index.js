@@ -12,6 +12,7 @@ const Channel = (props) => {
   } = props;
   const setInterval = Window.timeValue;
   const retrieveinterval = Window.intevalValue;
+
   return (
     <Link
       to={`/home/${channelid}`}

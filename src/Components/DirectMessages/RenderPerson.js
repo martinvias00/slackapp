@@ -4,7 +4,6 @@ import RetrieveMessages from "./RetrieveMessage";
 import RenderRetrievedMessages from "./RendeRetrievedMessages";
 import { IoPersonCircleOutline } from "react-icons/io5";
 
-
 const RenderPerson = () => {
   const renderName = () => {
     const uid = JSON.parse(localStorage.getItem("uid"));
@@ -23,16 +22,17 @@ const RenderPerson = () => {
               className="m-1 hover:bg-green-200 hover:text-gray-800"
               onClick={(e) => {
                 const id = (e.target.key = { post });
-                let setChannel = Window.setOnChannel
-                let openUserTab = Window.openUserTab
-                
+                let setChannel = Window.setOnChannel;
+                let openUserTab = Window.openUserTab;
+
                 Window.uid = id.post.uid;
                 Window.id = id.post.id;
 
-                setChannel(false)
-                if(openUserTab){openUserTab(false)}
-                
-                Messages3()
+                if (openUserTab) {
+                  openUserTab(false);
+                }
+
+                Messages3();
                 renderName();
                 RetrieveMessages();
 
@@ -61,4 +61,3 @@ const RenderPerson = () => {
 };
 
 export default RenderPerson;
-

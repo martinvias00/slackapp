@@ -49,6 +49,7 @@ const OptionModal = ({
           <Link
             to={`/home/settings`}
             style={{ textDecoration: "none" }}
+            className="m-2"
             onClick={() => {
               setChannelSettings(true);
             }}
@@ -63,7 +64,7 @@ const OptionModal = ({
           >
             <button
               type="submit"
-              class="text-gray-700 block w-full text-left px-4 py-2 text-sm"
+              class="text-gray-700 block w-full text-left px-4 py-2 text-sm m-2"
               role="menuitem"
               tabindex="-1"
               id="menu-item-3"
