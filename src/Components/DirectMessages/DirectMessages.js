@@ -13,11 +13,16 @@ import SendMessages from "./SendMessages";
 import RetrieveMessages from "./RetrieveMessage";
 import RenderRetrievedMessages from "./RendeRetrievedMessages";
 import { AiOutlineSend } from "react-icons/ai";
+import RetrieveChatMembers from "../SuggestedContacts/RetrievedChatMembers";
+
 
 function DirectMessages() {
   const [icons, setIcons] = useState(<VscTriangleRight />);
   const [userTabOpen, setUserTabOpen] = useState(false);
   let uid = Window.uid
+
+  
+  RetrieveChatMembers()
 
   const icon2 = () => {
     setIcons(<VscTriangleDown />);
@@ -27,9 +32,6 @@ function DirectMessages() {
     ReactDOM.render(<BsPlusLg />, document.getElementById("addPerson"));
   };
 
-  let noRender = () => {
-    ReactDOM.render(<div></div>, document.getElementById("addPerson"));
-  };
 
   var placeholder
   if(uid){ placeholder = `Message ${uid}`}else{  placeholder = " Start a conversation"}
@@ -40,11 +42,6 @@ function DirectMessages() {
         className="flex w-full h-6 ml-3"
         onMouseEnter={() => {
           renderAdd();
-        }}
-        onMouseLeave={() => {
-          setTimeout(() => {
-            noRender();
-          }, 1000);
         }}
       >
         <div id="messageIcon">{icons}</div>
