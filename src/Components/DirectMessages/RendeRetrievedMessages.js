@@ -7,7 +7,7 @@ function RenderRetrievedMessages(){
 
   let uid = Window.uid
 
-  if(!retrievedMessage){}else{
+  if(retrievedMessage && window.location.href === "http://localhost:3000/home/directmessages"){
 
     function Blog(props) {
 
@@ -45,16 +45,17 @@ function RenderRetrievedMessages(){
 
     ReactDOM.render(<div>{uid}</div>, document.querySelector(".channelName"))
   }
-//   if(retrievedMessage && uid){
 
-//     var newInterval = setInterval(() => {
-//         RenderRetrievedMessages()
-//     }, 10000);
-    
-//     Window.timeValue = newInterval
-    
-// }
-// if(window.onload){clearInterval( newInterval )}
+  if(window.location.href=== "http://localhost:3000/home/directmessages"){
+    var newInterval = setInterval(() => {
+              RenderRetrievedMessages()
+          }, 5000);
+          
+          Window.timeValue = newInterval
+  }else if(window.location.href !== "http://localhost:3000/home/directmessages"){}
+
+
+if(window.onload){clearInterval( newInterval )}
 
 }
 

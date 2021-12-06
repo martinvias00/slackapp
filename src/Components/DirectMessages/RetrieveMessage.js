@@ -31,20 +31,18 @@ function RetrieveMessages(){
     localStorage.setItem("retrievedMessages", data)
     }).catch(function (error) {
         console.error(error);
-        // clearInterval(retrieveinterval)
     });
 
 }
 
-// if(retrievedMessage ){
-//     var retrieveinterval = setInterval(() => {
-//         RetrieveMessages()
-//     }, 8000);
+if(retrievedMessage){
+    var retrieveinterval = setInterval(() => {
+        RetrieveMessages()
+    }, 5000);
 
-//     Window.intevalValue = retrieveinterval
-// }
+    Window.intevalValue = retrieveinterval
+}
 
-// if(window.onload){clearInterval( retrieveinterval )}
-
+if(window.onload){clearInterval( retrieveinterval )}
 
 export default RetrieveMessages;

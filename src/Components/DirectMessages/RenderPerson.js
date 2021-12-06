@@ -1,9 +1,7 @@
 import ReactDOM from "react-dom";
-import Messages3 from "../Messages3";
 import RetrieveMessages from "./RetrieveMessage";
 import RenderRetrievedMessages from "./RendeRetrievedMessages";
 import { IoPersonCircleOutline } from "react-icons/io5";
-import DirectMessages from "./DirectMessages";
 
 
 const RenderPerson = () => {
@@ -24,14 +22,11 @@ const RenderPerson = () => {
               className="m-1 hover:bg-green-200 hover:text-gray-800"
               onClick={(e) => {
                 const id = (e.target.key = { post });
-                let setChannel = Window.setOnChannel
                 let openUserTab = Window.openUserTab
                 
                 Window.uid = id.post.uid;
                 Window.id = id.post.id;
-                console.log("id", id)
 
-                // setChannel(false)
                 if(openUserTab){openUserTab(false)}
                 
                 renderName();
@@ -39,7 +34,7 @@ const RenderPerson = () => {
 
                 setTimeout(() => {
                   RenderRetrievedMessages();
-                }, 100);
+                }, 200);
               }}
             >
               <div id="userIdDiv">
