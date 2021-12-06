@@ -13,16 +13,13 @@ import SendMessages from "./SendMessages";
 import RetrieveMessages from "./RetrieveMessage";
 import RenderRetrievedMessages from "./RendeRetrievedMessages";
 import { AiOutlineSend } from "react-icons/ai";
-import RetrieveChatMembers from "../SuggestedContacts/RetrievedChatMembers";
+
 
 
 function DirectMessages() {
   const [icons, setIcons] = useState(<VscTriangleRight />);
   const [userTabOpen, setUserTabOpen] = useState(false);
   let uid = Window.uid
-
-  
-  RetrieveChatMembers()
 
   const icon2 = () => {
     setIcons(<VscTriangleDown />);
