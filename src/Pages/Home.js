@@ -30,8 +30,14 @@ const Home = () => {
   const [isSuccess, setisSuccess] = useState(0);
   const [OnChannel, setOnChannel] = useState(false);
   const [state, setstate] = useState(false);
-  const nav = useNavigate();
 
+  const nav = useNavigate();
+  useEffect(() => {
+    const setInterval = Window.timeValue;
+    const retrieveinterval = Window.intevalValue;
+    clearInterval(setInterval);
+    clearInterval(retrieveinterval);
+  }, []);
   useEffect(() => {
     const retrieveinterval = Window.intevalValue;
     if (retrieveinterval) {

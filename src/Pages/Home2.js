@@ -37,6 +37,10 @@ const Home2 = () => {
         <details
           onClick={() => {
             nav("/home", { replace: true });
+            const setInterval = Window.timeValue;
+            const retrieveinterval = Window.intevalValue;
+            clearInterval(setInterval);
+            clearInterval(retrieveinterval);
           }}
           className="flex justify-center text-left pl-2 text-white cursor-pointer ml-3"
         >

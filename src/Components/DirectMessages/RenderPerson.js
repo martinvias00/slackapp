@@ -3,7 +3,6 @@ import RetrieveMessages from "./RetrieveMessage";
 import RenderRetrievedMessages from "./RendeRetrievedMessages";
 import { IoPersonCircleOutline } from "react-icons/io5";
 
-
 const RenderPerson = () => {
   const renderName = () => {
     const uid = JSON.parse(localStorage.getItem("uid"));
@@ -57,4 +56,3 @@ const RenderPerson = () => {
 };
 
 export default RenderPerson;
-
