@@ -16,7 +16,7 @@ function RetrieveMessages(){
 
     const options = {
     method: 'GET',
-    url: `${URL}/api/v1/messages`,
+    url: `${URL}/api/v1/messages/`,
     params: {receiver_id: id, receiver_class: 'User'},
     headers: {
         'access-token': `${token}`,

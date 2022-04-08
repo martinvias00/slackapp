@@ -14,7 +14,7 @@ function SendMessages(){
     const message = document.getElementById("enterMessage").value
     const options = {
         method: 'POST',
-        url: `${URL}/api/v1/messages`,
+        url: `${URL}/api/v1/messages/`,
         headers: {
           'access-token': `${token}`,
           client: `${client}`,

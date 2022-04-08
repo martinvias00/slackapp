@@ -19,7 +19,7 @@ const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const params = {
-      path: "/api/v1/auth/sign_in",
+      path: "/api/v1/auth/sign_in/",
       data: {
         email: username,
         password: password,
