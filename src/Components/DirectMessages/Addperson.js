@@ -45,7 +45,7 @@ function AddPerson({setOpenUserTab}){
 
     const options = {
       method: 'GET',
-      url: `${URL}/api/v1/users`,
+      url: `${URL}/api/v1/users/`,
       headers: {
 
           'access-token': `${token}`,
