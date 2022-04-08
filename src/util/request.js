@@ -62,7 +62,7 @@ export default class request {
     params = {
       header,
       action: "GET",
-      path: "/api/v1/channels",
+      path: "/api/v1/channels/",
     };
     return request.API_REQUEST(params);
   }
@@ -76,7 +76,7 @@ export default class request {
     };
     params = {
       header,
-      path: "/api/v1/users",
+      path: "/api/v1/users/",
       action: "GET",
     };
     return request.API_REQUEST(params);
@@ -92,7 +92,7 @@ export default class request {
     params = {
       data: params.data,
       header,
-      path: "/api/v1/channels",
+      path: "/api/v1/channels/",
       action: "POST",
     };
     return request.API_REQUEST(params);
