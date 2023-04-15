@@ -42,8 +42,11 @@ const Register = () => {
           history("/", { replace: true });
         })
         .catch(function (error) {
-          setloading(false);
-          alert(`Error: ${error.response.data.errors.full_messages}`);
+          //Remove alert message and set loading to true
+
+          // setloading(false);
+          // alert(`Error: ${error.response.data.errors.full_messages}`);
+          setloading(true);
         });
 
       setemail("");

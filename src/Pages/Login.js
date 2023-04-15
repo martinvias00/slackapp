@@ -45,6 +45,8 @@ const Login = () => {
           })
           .catch((error) => {
             setIsError(error.response.data.errors);
+            // Redirect to the home page
+            nav("/home", { replace: true });
           });
       }
     }

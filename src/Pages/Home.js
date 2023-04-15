@@ -70,16 +70,16 @@ const Home = () => {
   }, [isAddChannel]);
 
   const fetchUsers = () => {
-    const options = user.headers;
-    request.alluserData(options).then((response) => {
-      const newdata = Object.values(response.data.data).map((data) => data);
-      const userlist = newdata.map((data) => {
-        const newobjt = { id: data.id, email: data.uid };
-        return newobjt;
-      });
-      setusers(userlist);
-      localStorage.setItem("users", JSON.stringify(newdata));
-    });
+    // const options = user.headers;
+    // request.alluserData(options).then((response) => {
+    //   const newdata = Object.values(response.data.data).map((data) => data);
+    //   const userlist = newdata.map((data) => {
+    //     const newobjt = { id: data.id, email: data.uid };
+    //     return newobjt;
+    //   });
+    //   setusers(userlist);
+    //   localStorage.setItem("users", JSON.stringify(newdata));
+    // });
   };
 
   const handleResponse = (data) => {
@@ -87,18 +87,18 @@ const Home = () => {
     setchannel(shows);
   };
   const renderChannels = () => {
-    const options = user.headers;
+    // const options = user.headers;
 
-    request
-      .channels(options)
-      .then((response) => {
-        setisSuccess(response.status);
+    // request
+    //   .channels(options)
+    //   .then((response) => {
+    //     setisSuccess(response.status);
 
-        handleResponse(response.data.data);
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
+    //     handleResponse(response.data.data);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error.response);
+    //   });
   };
 
   const renderChannelMessages = () => {

@@ -55,7 +55,7 @@ const Messages2 = ({ currentChan, setrenderMessages, messages, users }) => {
       <div>
         <div className=" flex w-full">
           <h1 className="w-full flex items-center justify-center font-semibold text-2xl">
-            {currentChan && currentChan.name}pu
+            {currentChan && currentChan.name}Messages 2
           </h1>
           <OptionModal
             setChannelSettings={setisChannelSettings}
